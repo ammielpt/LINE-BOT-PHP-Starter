@@ -19,7 +19,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $text
+				'text' => responseMsg($text)
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
@@ -43,5 +43,14 @@ if (!is_null($events['events'])) {
 			echo $result . "\r\n";
 		}
 	}
+}
+
+function responseMsg($msg){
+	
+	$response = "Hello";
+	
+	$response = ($msg == 'จึ๊ก') 'เต้าหมิงซื่อ' : $msg;
+	
+	return $response;
 }
 echo "OK";
