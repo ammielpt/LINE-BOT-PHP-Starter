@@ -17,6 +17,9 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
 
 			// Build message to reply back
+			
+			$text = ($text == 'Kak') ? 'กากส์' : $text;
+			
 			$messages = [
 				'type' => 'text',
 				'text' => $text
