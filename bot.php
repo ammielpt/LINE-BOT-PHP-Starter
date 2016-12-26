@@ -17,8 +17,16 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
 
 			// Build message to reply back
-			
 			$text = ($text == 'Kak') ? 'กากส์' : $text;
+			$text = ($text == 'จึ๊ก') ? 'หล่อ สัสๆ' : $text;
+			$text = ($text == 'บอล') ? 'พ่อเทพบุตร' : $text;
+			$text = ($text == 'บอลซัง') ? 'พนักงานดีเด่น' : $text;
+			$text = ($text == 'เกรียน') ? 'เหี้ย กรุ๊ปกากส์' : $text;
+			$text = ($text == 'ยนน') ? 'เยส แน่ นอน' : $text;
+			$text = ($text == 'กี่โมงแล้ว') ? 'ดูนาฬิกามึงเองซิ' : $text;
+			$text = ($text == 'แดกไรดี') ? 'เตาถ่านดิสัส คิดนาน เสียเวลาแดก' : $text;
+			$text = ($text == 'สาว') ? 'เงี่ยน?' : $text;
+			
 			
 			$messages = [
 				'type' => 'text',
