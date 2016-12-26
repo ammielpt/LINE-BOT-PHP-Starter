@@ -44,13 +44,4 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
-
-function responseMsg($msg){
-	
-	$response = "Hello";
-	
-	$response = ($msg == 'จึ๊ก') 'เต้าหมิงซื่อ' : $msg;
-	
-	return $response;
-}
 echo "OK";
