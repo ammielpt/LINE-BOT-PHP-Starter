@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Bangkok');
 $access_token = '5xB8I03dwTqRr7bAVZxYaU4FE2C+f9yzpTen4z+B/Q28nL+5Mvio/fsOzJeVmIq0eAeRCsOuw/gxsJdcyMn5+/lPgkpd+VnPWz3YLHP4DSDZiLpaYR6GP9YU/K68+Cf/N5Hr/AfbFGGYpiJ6JOM1ewdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
@@ -23,9 +24,13 @@ if (!is_null($events['events'])) {
 			$text = ($text == 'บอลซัง') ? 'พนักงานดีเด่น' : $text;
 			$text = ($text == 'เกรียน') ? 'เหี้ย กรุ๊ปกากส์' : $text;
 			$text = ($text == 'ยนน') ? 'เยส แน่ นอน' : $text;
-			$text = ($text == 'กี่โมงแล้ว') ? date("Y-m-d hh:MM:ss",time()) : $text;
 			$text = ($text == 'แดกไรดี') ? 'เตาถ่านดิสัส คิดนาน เสียเวลาแดก' : $text;
 			$text = ($text == 'สาว') ? 'เงี่ยน?' : $text;
+			
+			//DATE TIME
+			$text = ($text == 'วันนี้วันอะไร') ? date("l",time()) : $text;
+			$text = ($text == 'วันนี้วันที่เท่าไหร่') ? date("Y-m-d",time()) : $text;
+			$text = ($text == 'กี่โมงแล้ว') ? date("H:i:s",time()) : $text;
 			
 			if ($text == $event['message']['text']) {
 					//ignore
