@@ -19,9 +19,6 @@ if (!is_null($events['events'])) {
 
 			// Build message to reply back
 			$text = ($text == 'Kak') ? 'กากส์' : $text;
-			//$text = ($text == 'จึ๊ก') ? 'หล่อ สัสๆ' : $text;
-			//$text = ($text == 'บอล') ? 'พ่อเทพบุตร' : $text;
-			//$text = ($text == 'บอลซัง') ? 'พนักงานดีเด่น' : $text;
 			$text = ($text == 'เกรียน') ? 'เหี้ย กรุ๊ปกากส์' : $text;
 			$text = ($text == 'ยนน') ? 'เยส แน่ นอน' : $text;
 			
@@ -37,6 +34,15 @@ if (!is_null($events['events'])) {
 			
 			if (strpos($text, 'บอลซัง') !== false) {
 				$text = 'พนักงานดีเด่น';
+			}
+			
+			//LAUGH
+			if (strpos($text, '555') !== false) {
+				$text = '555555555555555555+';
+			}
+			
+			if (strpos($text, 'ถถถ') !== false) {
+				$text = 'ถถถถถถถถถถถถถถถถ';
 			}
 			
 			//DATE TIME
