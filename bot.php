@@ -24,13 +24,23 @@ if (!is_null($events['events'])) {
 			$text = ($text == 'บอลซัง') ? 'พนักงานดีเด่น' : $text;
 			$text = ($text == 'เกรียน') ? 'เหี้ย กรุ๊ปกากส์' : $text;
 			$text = ($text == 'ยนน') ? 'เยส แน่ นอน' : $text;
-			$text = ($text == 'แดกไรดี') ? 'เตาถ่านดิสัส คิดนาน เสียเวลาแดก' : $text;
+			
 			$text = ($text == 'สาว') ? 'เงี่ยน?' : $text;
 			
 			//DATE TIME
+			$text = ($text == '!day') ? date("l",time()) : $text;
+			$text = ($text == '!date') ? date("Y-m-d",time()) : $text;
+			$text = ($text == '!time') ? date("H:i:s",time()) : $text;
 			$text = ($text == 'วันนี้วันอะไร') ? date("l",time()) : $text;
 			$text = ($text == 'วันนี้วันที่เท่าไหร่') ? date("Y-m-d",time()) : $text;
 			$text = ($text == 'กี่โมงแล้ว') ? date("H:i:s",time()) : $text;
+			
+			//EATING
+			$text = ($text == 'แดกไรดี') ? '1. ปิ้งย่าง  2.อาหารญี่ปุ่น 3.บุฟเฟต์' : $text;
+			
+			$text = ($text == '1') ? 'เตาถ่าน' : $text;
+			$text = ($text == '2') ? 'Tengoku' : $text;
+			$text = ($text == '3') ? 'Oishi' : $text;
 			
 			if ($text == $event['message']['text']) {
 					//ignore
