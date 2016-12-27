@@ -79,7 +79,7 @@ if (!is_null($events['events'])) {
 					$result_text = $val['temp']; 
 				}*/
 				
-				$result_text = $obj['sys']['name'].' lat:'.$obj['coord']['lat'].'lon:'.$obj['coord']['lon'].'-'.$obj['weather']['main'].'-'.$obj['weather']['description'].'- temp:'.$obj['main']['temp'].'- wind speed:'.$obj['wind']['speed'].'- wind deg: '.$obj['wind']['deg'];
+				$result_text = $obj['name'].' lat:'.$obj['coord']['lat'].' lon:'.$obj['coord']['lon'].' -'.$obj['weather']['main'].' -'.$obj['weather']['description'].' - temp:'.$obj['main']['temp'].' - wind speed:'.$obj['wind']['speed'].' - wind deg: '.$obj['wind']['deg'];
 				
 				if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป 
 					$result_text = 'ไม่พบข้อมูล'; 
