@@ -58,46 +58,62 @@ if (!is_null($events['events'])) {
 				$ch1 = curl_init(); 
 				curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false); 
 				curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true); 
-				curl_setopt($ch1, CURLOPT_URL, 'http://api.wunderground.com/api/yourkey/forecast/lang:TH/q/Thailand/'.str_replace(' ', '%20', $text_ex[1]).'.json'); 
+				curl_setopt($ch1, CURLOPT_URL, 'http://api.openweathermap.org/data/2.5/weather?q='.$text_ex[1].'&APPID=00583bfaf42c82b44a8f99896720ee8f'); 
 				$result1 = curl_exec($ch1); 
 				curl_close($ch1); 
 				$obj = json_decode($result1, true); 
 				
-				if(isset($obj['forecast']['txt_forecast']['forecastday'][0]['fcttext_metric'])){ 
+				/*
+				if(isset($obj['weather']['txt_forecast']['forecastday'][0]['fcttext_metric'])){ 
 					$result_text = $obj['forecast']['txt_forecast']['forecastday'][0]['fcttext_metric']; 
 				}else{//ถ้าไม่เจอกับตอบกลับว่าไม่พบข้อมูล 
+					$result_text = 'ไม่พบข้อมูล'; 
+				}
+				*/
+				foreach($obj['weather'] as $key => $val){ 
+					$result_text = $val['main'] .'-'.$val['description']; 
+				}
+				
+				foreach($obj['main'] as $key => $val){ 
+					$result_text = $result_text.'-'.$val['temp']; 
+				}
+				
+				if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป 
 					$result_text = 'ไม่พบข้อมูล'; 
 				}
 				
 				$text = $result_text;
 			}
 			if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความคือ "อยากรู้" ให้ทำการดึงข้อมูลจาก Wikipedia หาจากไทยก่อน 
-			//https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=PHP 
-			$ch1 = curl_init(); 
-			curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false); 
-			curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true); 
-			curl_setopt($ch1, CURLOPT_URL, 'https://th.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]); 
-			$result1 = curl_exec($ch1); 
-			curl_close($ch1); 
-			$obj = json_decode($result1, true); 
-			foreach($obj['query']['pages'] as $key => $val){ 
-			$result_text = $val['extract']; } 
-			if(empty($result_text)){//ถ้าไม่พบให้หาจาก en 
-			$ch1 = curl_init(); 
-			curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false); 
-			curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true); 
-			curl_setopt($ch1, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]); 
-			$result1 = curl_exec($ch1); 
-			curl_close($ch1); 
-			$obj = json_decode($result1, true); 
-			foreach($obj['query']['pages'] as $key => $val){ 
-				$result_text = $val['extract']; 
+				//https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=PHP 
+					$ch1 = curl_init(); 
+					curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false); 
+					curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true); 
+					curl_setopt($ch1, CURLOPT_URL, 'https://th.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]); 
+					$result1 = curl_exec($ch1); 
+					curl_close($ch1); 
+					$obj = json_decode($result1, true); 
+				foreach($obj['query']['pages'] as $key => $val){ 
+					$result_text = $val['extract']; 
 				} 
-			} 
-			if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป 
-				$result_text = 'ไม่พบข้อมูล'; 
-			} 
-			$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text]; }
+				if(empty($result_text)){//ถ้าไม่พบให้หาจาก en 
+					$ch1 = curl_init(); 
+					curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false); 
+					curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true); 
+					curl_setopt($ch1, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]); 
+					$result1 = curl_exec($ch1); 
+					curl_close($ch1); 
+					$obj = json_decode($result1, true); 
+					
+					foreach($obj['query']['pages'] as $key => $val){ 
+					$result_text = $val['extract']; 
+					} 
+				} 
+				if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป 
+					$result_text = 'ไม่พบข้อมูล'; 
+				} 
+				$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text]; 
+			}
 			
 			$text = $result_text;
 			
