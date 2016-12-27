@@ -19,13 +19,25 @@ if (!is_null($events['events'])) {
 
 			// Build message to reply back
 			$text = ($text == 'Kak') ? 'กากส์' : $text;
-			$text = ($text == 'จึ๊ก') ? 'หล่อ สัสๆ' : $text;
-			$text = ($text == 'บอล') ? 'พ่อเทพบุตร' : $text;
-			$text = ($text == 'บอลซัง') ? 'พนักงานดีเด่น' : $text;
+			//$text = ($text == 'จึ๊ก') ? 'หล่อ สัสๆ' : $text;
+			//$text = ($text == 'บอล') ? 'พ่อเทพบุตร' : $text;
+			//$text = ($text == 'บอลซัง') ? 'พนักงานดีเด่น' : $text;
 			$text = ($text == 'เกรียน') ? 'เหี้ย กรุ๊ปกากส์' : $text;
 			$text = ($text == 'ยนน') ? 'เยส แน่ นอน' : $text;
 			
 			$text = ($text == 'สาว') ? 'เงี่ยน?' : $text;
+			
+			if (strpos($text, 'จึ๊ก') !== false) {
+				$text = 'หล่อ สัสๆ';
+			}
+			
+			if (strpos($text, 'บอล') !== false) {
+				$text = 'พ่อเทพบุตร';
+			}
+			
+			if (strpos($text, 'บอลซัง') !== false) {
+				$text = 'พนักงานดีเด่น';
+			}
 			
 			//DATE TIME
 			$text = ($text == '!day') ? date("l",time()) : $text;
