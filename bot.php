@@ -22,7 +22,8 @@ if (!is_null($events['events'])) {
 			$text = ($text == 'เกรียน') ? 'เหี้ย กรุ๊ปกากส์' : $text;
 			$text = ($text == 'ยนน') ? 'เยส แน่ นอน' : $text;
 			
-			$text = ($text == 'สาว') ? 'เงี่ยน?' : $text;
+			$text = ($text == 'บอท') ? 'เงี่ยน?' : $text;
+			$text = ($text == 'ควย') ? 'อยากได้?' : $text;
 			
 			if (strpos($text, 'จึ๊ก') !== false) {
 				$text = 'หล่อ สัสๆ';
