@@ -45,16 +45,13 @@ if (!is_null($events['events'])) {
 			//HELP
 			//$text = ($text == '!help') ? '' : $text;
 			
-			$text_ex = explode(':', $text);
+			$text_ex = explode(' ', $text);
 			
 			//Google
 			if($text_ex[0] == "google"){
-				$pieces = explode("google ", $text);
 				$text = 'https://www.google.co.th/webhp?hl=en&sa=X&ved=0ahUKEwi9_eLi95PRAhXJN48KHQpIA9EQPAgD#hl=en&q='. $text_ex[1];
 			}
-			
-			
-			
+
 			//Weather
 			////http://api.wunderground.com/api/yourkey/forecast/lang:TH/q/Thailand/%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3.json - See more at: https://www.programmerthailand.com/tutorial/post/view/163/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87-line-bot-%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B9%83%E0%B8%8A%E0%B9%89-curl-%E0%B9%83%E0%B8%99-yii-framework-2#sthash.e3ydFVOY.dpuf
 			if($text_ex[0] == "อากาศ"){
@@ -74,6 +71,35 @@ if (!is_null($events['events'])) {
 				
 				$text = $result_text;
 			}
+			if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความคือ "อยากรู้" ให้ทำการดึงข้อมูลจาก Wikipedia หาจากไทยก่อน 
+			//https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=PHP 
+			$ch1 = curl_init(); 
+			curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false); 
+			curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true); 
+			curl_setopt($ch1, CURLOPT_URL, 'https://th.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]); 
+			$result1 = curl_exec($ch1); 
+			curl_close($ch1); 
+			$obj = json_decode($result1, true); 
+			foreach($obj['query']['pages'] as $key => $val){ 
+			$result_text = $val['extract']; } 
+			if(empty($result_text)){//ถ้าไม่พบให้หาจาก en 
+			$ch1 = curl_init(); 
+			curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false); 
+			curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true); 
+			curl_setopt($ch1, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]); 
+			$result1 = curl_exec($ch1); 
+			curl_close($ch1); 
+			$obj = json_decode($result1, true); 
+			foreach($obj['query']['pages'] as $key => $val){ 
+				$result_text = $val['extract']; 
+				} 
+			} 
+			if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป 
+				$result_text = 'ไม่พบข้อมูล'; 
+			} 
+			$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text]; }
+			
+			$text = $result_text;
 			
 			if ($text == $event['message']['text']) {
 					//ignore
