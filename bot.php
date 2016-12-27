@@ -24,6 +24,8 @@ if (!is_null($events['events'])) {
 			
 			$text = ($text == 'บอท') ? 'เงี่ยน?' : $text;
 			$text = ($text == 'ควย') ? 'อยากได้?' : $text;
+			$text = ($text == 'สัส') ? 'เป็นเหี้ยไร' : $text;
+			$text = ($text == 'กาก') ? 'สมกับมึงแล้ว' : $text;
 			
 			if (strpos($text, 'จึ๊ก') !== false) {
 				$text = 'หล่อ สัสๆ';
