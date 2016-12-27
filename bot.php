@@ -42,6 +42,15 @@ if (!is_null($events['events'])) {
 			$text = ($text == '2') ? 'Tengoku' : $text;
 			$text = ($text == '3') ? 'Oishi' : $text;
 			
+			//HELP
+			//$text = ($text == '!help') ? '' : $text;
+			
+			//Google
+			if (strpos($text, 'google ') !== false) {
+				$pieces = explode("google ", $text);
+				$text = 'https://www.google.co.th/webhp?hl=en&sa=X&ved=0ahUKEwi9_eLi95PRAhXJN48KHQpIA9EQPAgD#hl=en&q='. $pieces[1];
+			}
+			
 			if ($text == $event['message']['text']) {
 					//ignore
 			}else{
