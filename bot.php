@@ -45,10 +45,34 @@ if (!is_null($events['events'])) {
 			//HELP
 			//$text = ($text == '!help') ? '' : $text;
 			
+			$text_ex = explode(':', $text);
+			
 			//Google
-			if (strpos($text, 'google ') !== false) {
+			if($text_ex[0] == "google"){
 				$pieces = explode("google ", $text);
-				$text = 'https://www.google.co.th/webhp?hl=en&sa=X&ved=0ahUKEwi9_eLi95PRAhXJN48KHQpIA9EQPAgD#hl=en&q='. $pieces[1];
+				$text = 'https://www.google.co.th/webhp?hl=en&sa=X&ved=0ahUKEwi9_eLi95PRAhXJN48KHQpIA9EQPAgD#hl=en&q='. $text_ex[1];
+			}
+			
+			
+			
+			//Weather
+			////http://api.wunderground.com/api/yourkey/forecast/lang:TH/q/Thailand/%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3.json - See more at: https://www.programmerthailand.com/tutorial/post/view/163/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87-line-bot-%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B9%83%E0%B8%8A%E0%B9%89-curl-%E0%B9%83%E0%B8%99-yii-framework-2#sthash.e3ydFVOY.dpuf
+			if($text_ex[0] == "อากาศ"){
+				$ch1 = curl_init(); 
+				curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false); 
+				curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true); 
+				curl_setopt($ch1, CURLOPT_URL, 'http://api.wunderground.com/api/yourkey/forecast/lang:TH/q/Thailand/'.str_replace(' ', '%20', $text_ex[1]).'.json'); 
+				$result1 = curl_exec($ch1); 
+				curl_close($ch1); 
+				$obj = json_decode($result1, true); 
+				
+				if(isset($obj['forecast']['txt_forecast']['forecastday'][0]['fcttext_metric'])){ 
+					$result_text = $obj['forecast']['txt_forecast']['forecastday'][0]['fcttext_metric']; 
+				}else{//ถ้าไม่เจอกับตอบกลับว่าไม่พบข้อมูล 
+					$result_text = 'ไม่พบข้อมูล'; 
+				}
+				
+				$text = $result_text;
 			}
 			
 			if ($text == $event['message']['text']) {
