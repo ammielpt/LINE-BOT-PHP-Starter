@@ -26,6 +26,7 @@ if (!is_null($events['events'])) {
 			$text = ($text == 'ควย') ? 'อยากได้?' : $text;
 			$text = ($text == 'สัส') ? 'เป็นเหี้ยไร' : $text;
 			$text = ($text == 'กาก') ? 'สมกับมึงแล้ว' : $text;
+			$text = ($text == 'เหลียง') ? 'เหลียงไหนหล่ะ สัส' : $text;
 			
 			if (strpos($text, 'จึ๊ก') !== false) {
 				$text = 'หล่อ สัสๆ';
@@ -82,23 +83,6 @@ if (!is_null($events['events'])) {
 				$result1 = curl_exec($ch1); 
 				curl_close($ch1); 
 				$obj = json_decode($result1, true); 
-				
-				/*
-				if(isset($obj['weather']['txt_forecast']['forecastday'][0]['fcttext_metric'])){ 
-					$result_text = $obj['forecast']['txt_forecast']['forecastday'][0]['fcttext_metric']; 
-				}else{//ถ้าไม่เจอกับตอบกลับว่าไม่พบข้อมูล 
-					$result_text = 'ไม่พบข้อมูล'; 
-				}
-				*/
-				/*
-				foreach($obj['weather'] as $key => $val){ 
-					$result_text = $val['main'] .'-'.$val['description']; 
-				}
-				*/
-				/*
-				foreach($obj['main'] as $key => $val){ 
-					$result_text = $val['temp']; 
-				}*/
 				
 				$result_text = $obj['name'].' lat:'.$obj['coord']['lat'].' lon:'.$obj['coord']['lon'].' -'.$obj['weather']['main'].' -'.$obj['weather']['description'].' - temp:'.$obj['main']['temp'].' - wind speed:'.$obj['wind']['speed'].' - wind deg: '.$obj['wind']['deg'];
 				
