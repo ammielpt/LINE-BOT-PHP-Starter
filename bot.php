@@ -46,12 +46,23 @@ if (!is_null($events['events'])) {
 			$text = ($text == 'กาก') ? 'สมกับมึงแล้ว' : $text;
 			$text = ($text == 'เหลียง') ? 'เหลียงไหนหล่ะ สัส' : $text;
 
+			$wordList = array(
+							    1    => "เต้าหมิงซื่อ",
+							    2		 => "พ่อเทพบุตร",
+							    3		 => "หล่อ สัสๆ",
+							    4    => "เจอรี่ F4",
+									);
+
+			var_dump($wordList);
+
 			if (strpos($text, 'จึ๊ก') !== false) {
-				$text = 'หล่อ สัสๆ';
+				$key = rand(1,4);
+				$text = $wordList($key);
 			}
 
 			if (strpos($text, 'บอล') !== false) {
-				$text = 'พ่อเทพบุตร';
+				$key = rand(1,4);
+				$text = $wordList($key);
 			}
 
 			if (strpos($text, 'บอลซัง') !== false) {
@@ -78,13 +89,6 @@ if (!is_null($events['events'])) {
 			$text = ($text == 'วันนี้วันอะไร') ? date("l",time()) : $text;
 			$text = ($text == 'วันนี้วันที่เท่าไหร่') ? date("Y-m-d",time()) : $text;
 			$text = ($text == 'กี่โมงแล้ว') ? date("H:i:s",time()) : $text;
-
-			//EATING
-			$text = ($text == 'แดกไรดี') ? '1. ปิ้งย่าง  2.อาหารญี่ปุ่น 3.บุฟเฟต์' : $text;
-
-			$text = ($text == '1') ? 'เตาถ่าน' : $text;
-			$text = ($text == '2') ? 'Tengoku' : $text;
-			$text = ($text == '3') ? 'Oishi' : $text;
 
 			//HELP
 			//$text = ($text == '!help') ? '' : $text;
