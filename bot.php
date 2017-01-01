@@ -57,12 +57,11 @@ if (!is_null($events['events'])) {
 
 			if (strpos($text, 'จึ๊ก') !== false) {
 				$key = rand(1,4);
-				$text = $wordList($key);
+				$text = $wordList[$key];
 			}
 
 			if (strpos($text, 'บอล') !== false) {
-				$key = rand(1,4);
-				$text = $wordList($key);
+				$text = 'หล่อ สัสๆ';
 			}
 
 			if (strpos($text, 'บอลซัง') !== false) {
