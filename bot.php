@@ -42,6 +42,7 @@ if (!is_null($events['events'])) {
 			$text = ($text == 'บอท') ? 'เงี่ยน?' : $text;
 			$text = ($text == 'ควย') ? 'อยากได้?' : $text;
 			$text = ($text == 'สัส') ? 'เป็นเหี้ยไร' : $text;
+			$text = ($text == 'สาว') ? 'เงี่ยน?' : $text;
 			$text = ($text == 'กาก') ? 'สมกับมึงแล้ว' : $text;
 			$text = ($text == 'เหลียง') ? 'เหลียงไหนหล่ะ สัส' : $text;
 
@@ -64,6 +65,10 @@ if (!is_null($events['events'])) {
 
 			if (strpos($text, 'ถถถ') !== false) {
 				$text = 'ถถถถถถถถถถถถถถถถ';
+			}
+
+			if (strpos($text, 'ไหน') !== false) {
+				$text = 'ไหนพ่อง';
 			}
 
 			//DATE TIME
@@ -97,6 +102,7 @@ if (!is_null($events['events'])) {
 				curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
 				curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
 				curl_setopt($ch1, CURLOPT_URL, 'http://api.openweathermap.org/data/2.5/weather?q='.$text_ex[1].'&APPID=00583bfaf42c82b44a8f99896720ee8f');
+				//curl_setopt($ch1, CURLOPT_URL, 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22'.$text_ex[1].'%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys');
 				$result1 = curl_exec($ch1);
 				curl_close($ch1);
 				$obj = json_decode($result1, true);
