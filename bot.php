@@ -47,8 +47,8 @@ if (!is_null($events['events'])) {
 			$text = ($text == 'เหลียง') ? 'เหลียงไหนหล่ะ สัส' : $text;
 
 			$text = ($text == 'กำ') ? 'กำขี้ หรือกำตด' : $text;
-
 			$text = ($text == 'ว้าว') ? 'ไม่สนิทอย่าคิดว้าว' : $text;
+			$text = ($text == 'คนดี') ? 'กราบรถกู!!!' : $text;
 
 			$wordList = array(
 							    1    => "เต้าหมิงซื่อ",
