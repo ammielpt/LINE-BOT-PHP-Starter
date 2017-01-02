@@ -48,7 +48,7 @@ if (!is_null($events['events'])) {
 
 			$text = ($text == 'กำ') ? 'กำขี้ หรือกำตด' : $text;
 
-			$text = ($text == 'กำ') ? 'ไม่สนิทอย่าคิดว้าว' : $text;
+			$text = ($text == 'ว้าว') ? 'ไม่สนิทอย่าคิดว้าว' : $text;
 
 			$wordList = array(
 							    1    => "เต้าหมิงซื่อ",
@@ -83,10 +83,6 @@ if (!is_null($events['events'])) {
 
 			if (strpos($text, 'ไหน') !== false) {
 				$text = 'ไหนพ่อง';
-			}
-
-			if (strpos($text, 'ว้าว') !== false) {
-				$text = 'ว้าวพ่อง';
 			}
 
 			if (strpos($text, 'พ่องตาย') !== false) {
