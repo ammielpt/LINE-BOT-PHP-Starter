@@ -83,6 +83,10 @@ if (!is_null($events['events'])) {
 				$text = 'ไหนพ่อง';
 			}
 
+			if (strpos($text, 'ว้าว') !== false) {
+				$text = 'ว้าวพ่อง';
+			}
+
 			//DATE TIME
 			$text = ($text == '!day') ? date("l",time()) : $text;
 			$text = ($text == '!date') ? date("Y-m-d",time()) : $text;
