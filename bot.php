@@ -87,6 +87,14 @@ if (!is_null($events['events'])) {
 				$text = 'ว้าวพ่อง';
 			}
 
+			if (strpos($text, 'พ่องตาย') !== false) {
+				$text = 'แม่ง ด้วยมั้ย';
+			}
+
+			if (strpos($text, 'เหี้ย') !== false) {
+				$text = 'ใจเย็ดๆนะครัช';
+			}
+
 			//DATE TIME
 			$text = ($text == '!day') ? date("l",time()) : $text;
 			$text = ($text == '!date') ? date("Y-m-d",time()) : $text;
