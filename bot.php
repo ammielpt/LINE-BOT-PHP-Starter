@@ -48,6 +48,8 @@ if (!is_null($events['events'])) {
 
 			$text = ($text == 'กำ') ? 'กำขี้ หรือกำตด' : $text;
 
+			$text = ($text == 'กำ') ? 'ไม่สนิทอย่าคิดว้าว' : $text;
+
 			$wordList = array(
 							    1    => "เต้าหมิงซื่อ",
 							    2		 => "พ่อเทพบุตร",
