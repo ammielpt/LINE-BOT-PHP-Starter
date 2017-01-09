@@ -32,7 +32,16 @@ if (!is_null($events['events'])) {
 				array_push($wordList, $item);
 				
 				//fill in response from firebase
+				
+				//EQUAL LOGIC
+				/*
 				if($text == $item['key']){
+					$text = $item['response'];
+				}
+				*/
+				
+				//CONTAINS LOGIC
+				if(strpos($text, $item['key']) !== false){
 					$text = $item['response'];
 				}
 			}
