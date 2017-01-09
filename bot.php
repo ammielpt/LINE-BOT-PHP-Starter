@@ -34,16 +34,16 @@ if (!is_null($events['events'])) {
 				//fill in response from firebase
 				
 				//EQUAL LOGIC
-				/*
+				
 				if($text == $item['key']){
 					$text = $item['response'];
 				}
-				*/
+				
 				
 				//CONTAINS LOGIC
-				if(strpos($text, $item['key']) !== false){
+				/*if(strpos($text, $item['key']) !== false){
 					$text = $item['response'];
-				}
+				}*/
 			}
 
 			/*
