@@ -45,26 +45,21 @@ if (!is_null($events['events'])) {
 
 			$wordList = array();
 			foreach($json as $item){
-				//echo $item['key'];
-				//echo ':';
-				//echo $item['response'];
-				//echo '<br>';
-				//$wordList.push($item);
 				array_push($wordList, $item);
 				
-				//fill in response from firebase
-				
 				//EQUAL LOGIC
-				
 				if($text == $item['key']){
 					$text = $item['response'];
 				}
-				
 				
 				//CONTAINS LOGIC
 				/*if(strpos($text, $item['key']) !== false){
 					$text = $item['response'];
 				}*/
+			}
+			
+			if($text == '!key') {
+				$text = "แหกตาดูแหกไป๊ \r\n https://pornjeds.github.io/ChatBotDashboard/";
 			}
 
 			//LAUGH
@@ -110,6 +105,7 @@ if (!is_null($events['events'])) {
 
 				$text = $result_text;
 			}
+			*/
 
 			//Wikipedia
 			if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความคือ "อยากรู้" ให้ทำการดึงข้อมูลจาก Wikipedia หาจากไทยก่อน
@@ -144,7 +140,6 @@ if (!is_null($events['events'])) {
 
 				$text = $result_text;
 			}
-			*/
 
 			if ($text == $event['message']['text']) {
 					//ignore
