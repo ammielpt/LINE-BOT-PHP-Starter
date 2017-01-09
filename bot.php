@@ -16,9 +16,28 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
+			
+			// Get request/response message from firebase
+			$url = 'https://linechatbotdb.firebaseio.com/keywords.json';
+			$content = file_get_contents($url);
+			$json = json_decode($content, true);
 
-			// Build message to reply back
+			$wordList = array();
+			foreach($json as $item){
+				//echo $item['key'];
+				//echo ':';
+				//echo $item['response'];
+				//echo '<br>';
+				//$wordList.push($item);
+				array_push($wordList, $item);
+				
+				//fill in response from firebase
+				if($text == $item['key']){
+					$text = $item['response'];
+				}
+			}
 
+			// Build message to reply back			
 			$text = ($text == '!กาก') ? 'เกรียน : เหี้ย กรุ๊ปกากส์
 																		สัส		 : 	เป็นเหี้ยไร
 																		กาก		:	สมกับมึงแล้ว
