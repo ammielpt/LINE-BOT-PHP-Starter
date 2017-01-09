@@ -79,7 +79,7 @@ if (!is_null($events['events'])) {
 			//HELP
 			//$text = ($text == '!help') ? '' : $text;
 
-			$text_ex = explode(' ', $text);
+			
 
 			//Google
 			if($text_ex[0] == "google"){
@@ -106,10 +106,12 @@ if (!is_null($events['events'])) {
 				$text = $result_text;
 			}
 			*/
+			
+			//Command Function
+			$text_ex = explode(' ', $text);
 
 			//Wikipedia
 			if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความคือ "อยากรู้" ให้ทำการดึงข้อมูลจาก Wikipedia หาจากไทยก่อน
-				//https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=PHP
 					$ch1 = curl_init();
 					curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
 					curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
@@ -134,7 +136,7 @@ if (!is_null($events['events'])) {
 					}
 				}
 				if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
-					$result_text = 'ไม่พบข้อมูล';
+					$result_text = 'สัส ไม่รู้โว้ย';
 				}
 				$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text];
 
