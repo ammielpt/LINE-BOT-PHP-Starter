@@ -59,7 +59,7 @@ if (!is_null($events['events'])) {
 			}
 			
 			if($text == '!key') {
-				$text = "แหกตาดูแหกไป๊ \r\nhttps://pornjeds.github.io/ChatBotDashboard/";
+				$text = "แหกตาดูเองไป๊ \r\nhttps://pornjeds.github.io/ChatBotDashboard/";
 			}
 
 			//LAUGH
