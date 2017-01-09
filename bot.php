@@ -17,6 +17,27 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			
+			//Save to Logger
+			try{
+				$userId = $event['source']['userId'];
+				$url = 'https://linechatlogger.firebaseio.com/logger.json';
+				$data = [
+					'userId' => $userId,
+					'messages' => [$text],
+				];
+				$post = json_encode($data);
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+				//curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				$result = curl_exec($ch);
+				curl_close($ch);
+			}catch(Exception $e){
+				echo 'Caught exception: ',  $e->getMessage(), "\n";
+			}
+			
 			// Get request/response message from firebase
 			$url = 'https://linechatbotdb.firebaseio.com/keywords.json';
 			$content = file_get_contents($url);
@@ -46,75 +67,10 @@ if (!is_null($events['events'])) {
 				}*/
 			}
 
-			/*
-			// Build message to reply back			
-			$text = ($text == '!กาก') ? 'เกรียน : เหี้ย กรุ๊ปกากส์
-																		สัส		 : 	เป็นเหี้ยไร
-																		กาก		:	สมกับมึงแล้ว
-																		บอล		: พ่อเทพบุตร
-																		จึ๊ก		:	หล่อ สัสๆ
-																		บอลซัง : พนักงานดีเด่น' : $text;
-			$text = ($text == '!help') ? '!day 	:
-																		!date	:
-																		!time	:
-																		วันนี้วันอะไร	:
-																		วันนี้วันที่เท่าไหร่	:
-																		กี่โมงแล้ว :
-																		อากาศ Bangkok :
-																		อยากรู้​ เกรียน :
-																		' : $text;
-
-			$text = ($text == 'Kak') ? 'กากส์' : $text;
-			$text = ($text == 'เกรียน') ? 'เหี้ย กรุ๊ปกากส์' : $text;
-			$text = ($text == 'ยนน') ? 'เยส แน่ นอน' : $text;
-
-			$text = ($text == 'บอท') ? 'เงี่ยน?' : $text;
-			$text = ($text == 'ควย') ? 'อยากได้?' : $text;
-			$text = ($text == 'สัส') ? 'เป็นเหี้ยไร' : $text;
-			$text = ($text == 'สาว') ? 'เงี่ยน?' : $text;
-			$text = ($text == 'กาก') ? 'สมกับมึงแล้ว' : $text;
-			$text = ($text == 'เหลียง') ? 'เหลียงไหนหล่ะ สัส' : $text;
-
-			$text = ($text == 'กำ') ? 'กำขี้ หรือกำตด' : $text;
-			$text = ($text == 'ว้าว') ? 'ไม่สนิทอย่าคิดว้าว' : $text;
-			$text = ($text == 'คนดี') ? 'กราบรถกู!!!' : $text;
-
-			$wordList = array(
-							    1    => "เต้าหมิงซื่อ",
-							    2		 => "พ่อเทพบุตร",
-							    3		 => "หล่อ สัสๆ",
-							    4    => "เจอรี่ F4",
-									);
-
-			var_dump($wordList);
-
-			if (strpos($text, 'จึ๊ก') !== false) {
-				$key = rand(1,4);
-				$text = $wordList[$key];
-			}
-
-			if (strpos($text, 'บอล') !== false) {
-				$text = 'หล่อ สัสๆ';
-			}
-
-			if (strpos($text, 'บอลซัง') !== false) {
-				$text = 'พนักงานดีเด่น';
-			}
-			*/
-
 			//LAUGH
 			if (strpos($text, '555') !== false) {
 				$text = '555555555555555555+';
 			}
-			
-			/*
-			if (strpos($text, 'ถถถ') !== false) {
-				$text = 'ถถถถถถถถถถถถถถถถ';
-			}
-
-			if (strpos($text, 'ไหน') !== false) {
-				$text = 'ไหนพ่อง';
-			}*/
 
 			/*
 			//DATE TIME
