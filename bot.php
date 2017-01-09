@@ -37,6 +37,7 @@ if (!is_null($events['events'])) {
 				}
 			}
 
+			/*
 			// Build message to reply back			
 			$text = ($text == '!กาก') ? 'เกรียน : เหี้ย กรุ๊ปกากส์
 																		สัส		 : 	เป็นเหี้ยไร
@@ -90,20 +91,23 @@ if (!is_null($events['events'])) {
 			if (strpos($text, 'บอลซัง') !== false) {
 				$text = 'พนักงานดีเด่น';
 			}
+			*/
 
 			//LAUGH
 			if (strpos($text, '555') !== false) {
 				$text = '555555555555555555+';
 			}
-
+			
+			/*
 			if (strpos($text, 'ถถถ') !== false) {
 				$text = 'ถถถถถถถถถถถถถถถถ';
 			}
 
 			if (strpos($text, 'ไหน') !== false) {
 				$text = 'ไหนพ่อง';
-			}
+			}*/
 
+			/*
 			//DATE TIME
 			$text = ($text == '!day') ? date("l",time()) : $text;
 			$text = ($text == '!date') ? date("Y-m-d",time()) : $text;
@@ -175,6 +179,7 @@ if (!is_null($events['events'])) {
 
 				$text = $result_text;
 			}
+			*/
 
 			if ($text == $event['message']['text']) {
 					//ignore
