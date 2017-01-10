@@ -17,12 +17,24 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			
+			$id = '';
+			$type = '';
+			if($event['source']['type'] == 'user'){
+				$id = $event['source']['userId'];
+				$type = 'user';
+			}else if($event['source']['type'] == 'group'){
+				$id = $event['source']['groupId'];
+				$type = 'user';
+			}else if($event['source']['type'] == 'room'){
+				$id = $event['source']['roomId'];
+				$type = 'user';
+			}
 			//Save to Logger
 			try{
-				$userId = $event['source']['userId'];
 				$url = 'https://linechatlogger.firebaseio.com/logger.json';
 				$data = [
-					'userId' => $userId,
+					'id' => $id,
+					'type' => $type,
 					'messages' => [$text],
 				];
 				$post = json_encode($data);
