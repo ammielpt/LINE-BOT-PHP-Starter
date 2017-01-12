@@ -59,15 +59,27 @@ if (!is_null($events['events'])) {
 			foreach($json as $item){
 				array_push($wordList, $item);
 				
-				//EQUAL LOGIC
-				if($text == $item['key']){
-					$text = $item['response'];
+				if($item['compare'] == 1) //EQUAL
+				{
+					//EQUAL LOGIC
+					if($text == $item['key'])
+					{
+						$text = $item['response'];
+					}
+				}else if($item['compare'] == 2) //CONTAINS
+				{
+					if(strpos($text, $item['key']) !== false)
+					{
+						$text = $item['response'];
+					}
+				}else
+				{
+					//EQUAL LOGIC BY DEFAULT
+					if($text == $item['key'])
+					{
+						$text = $item['response'];
+					}
 				}
-				
-				//CONTAINS LOGIC
-				/*if(strpos($text, $item['key']) !== false){
-					$text = $item['response'];
-				}*/
 			}
 			
 			if($text == '!key') {
