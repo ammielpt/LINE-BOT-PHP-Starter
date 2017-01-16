@@ -57,9 +57,9 @@ if (!is_null($events['events'])) {
 
 			$wordList = array();
 			foreach($json as $item){
-				array_push($wordList, $item);
+				//array_push($wordList, $item);
 				
-				if($item['compare'] == 1) //EQUAL
+				/* if($item['compare'] == 1) //EQUAL
 				{
 					//EQUAL LOGIC
 					if($text == $item['key'])
@@ -79,6 +79,10 @@ if (!is_null($events['events'])) {
 					{
 						$text = $item['response'];
 					}
+				} */
+				if(strpos($text, $item['key']) !== false)
+				{
+					$text = $item['response'];
 				}
 			}
 			
