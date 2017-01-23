@@ -9,47 +9,49 @@ try{
 	$content = file_get_contents($url);
 	$json = json_decode($content, true);
 	$imageList = array();
-	$count = 0;
+	//$count = 0;
 	foreach($json as $item){
-		//array_push($imageList,$item['downloadURLs']);
-		$imageList[$counter] = $item['downloadURLs'];
-		$counter++;
+		array_push($imageList,$item['downloadURLs']);
+		//$imageList[$counter] = $item['downloadURLs'];
+		//$counter++;
 	}
-}catch(Exception $e){
-	echo 'Caught exception: ',  $e->getMessage(), "\n";
-}
+	
+	$arraySize = sizeof($imageList);
+	echo 'image size: '+ $arraySize;
 
-echo 'image size: '+ $imageList.size();
-$randomIndex = echo(rand(0,$imageList.size() - 1));
-$imgUrl = $imageList[$randomIndex];
+	if($arraySize >= 0){
+		$randomIndex = rand(0,$arraySize - 1);
+		$imgUrl = $imageList[$randomIndex];
+		
+		//RESPONSE
+		$messages = [
+			'type' => 'image',
+			'originalContentUrl' => $imgUrl,
+			'previewImageUrl' => $imgUrl
+		];
 
-try{
-	//RESPONSE
-	$messages = [
-		'type' => 'image',
-		'originalContentUrl' => $imgUrl,
-		'previewImageUrl' => $imgUrl
-	];
+		// Make a POST Request to Messaging API to reply to sender
+		$url = 'https://api.line.me/v2/bot/message/push';
+		$data = [
+			'to' => $groupId,
+			'messages' => [$messages],
+		];
+		$post = json_encode($data);
+		$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
-	// Make a POST Request to Messaging API to reply to sender
-	$url = 'https://api.line.me/v2/bot/message/push';
-	$data = [
-		'to' => $groupId,
-		'messages' => [$messages],
-	];
-	$post = json_encode($data);
-	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		$result = curl_exec($ch);
+		curl_close($ch);
 
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-	$result = curl_exec($ch);
-	curl_close($ch);
-
-	echo $result . "\r\n";
+		echo $result . "\r\n";
+	}else{
+		//no result from json.
+	}
 }catch(Exception $e){
 	echo 'Caught exception: ',  $e->getMessage(), "\n";
 }
