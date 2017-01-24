@@ -50,46 +50,46 @@ if (!is_null($events['events'])) {
 				echo 'Caught exception: ',  $e->getMessage(), "\n";
 			}
 			
-			// Get request/response message from firebase
-			$url = 'https://linechatbotdb.firebaseio.com/keywords.json';
-			$content = file_get_contents($url);
-			$json = json_decode($content, true);
+			// // Get request/response message from firebase
+			// $url = 'https://linechatbotdb.firebaseio.com/keywords.json';
+			// $content = file_get_contents($url);
+			// $json = json_decode($content, true);
 
-			$wordList = array();
-			foreach($json as $item){
-				//array_push($wordList, $item);
+			// $wordList = array();
+			// foreach($json as $item){
+			// 	//array_push($wordList, $item);
 				
-				if($item['compare'] == 1) //EQUAL
-				{
-					//EQUAL LOGIC
-					if($text == $item['key'])
-					{
-						$text = $item['response'];
-					}
-				}else if($item['compare'] == 2) //CONTAINS
-				{
-					if(strpos($text, $item['key']) !== false)
-					{
-						$text = $item['response'];
-					}
-				}else
-				{
-					//EQUAL LOGIC BY DEFAULT
-					if($text == $item['key'])
-					{
-						$text = $item['response'];
-					}
-				}
-			}
+			// 	if($item['compare'] == 1) //EQUAL
+			// 	{
+			// 		//EQUAL LOGIC
+			// 		if($text == $item['key'])
+			// 		{
+			// 			$text = $item['response'];
+			// 		}
+			// 	}else if($item['compare'] == 2) //CONTAINS
+			// 	{
+			// 		if(strpos($text, $item['key']) !== false)
+			// 		{
+			// 			$text = $item['response'];
+			// 		}
+			// 	}else
+			// 	{
+			// 		//EQUAL LOGIC BY DEFAULT
+			// 		if($text == $item['key'])
+			// 		{
+			// 			$text = $item['response'];
+			// 		}
+			// 	}
+			// }
 			
-			if($text == '!key') {
-				$text = "แหกตาดูเองไป๊ \r\nhttps://pornjeds.github.io/ChatBotDashboard/";
-			}
+			// if($text == '!key') {
+			// 	$text = "แหกตาดูเองไป๊ \r\nhttps://pornjeds.github.io/ChatBotDashboard/";
+			// }
 
 			//LAUGH
-			if (strpos($text, '555') !== false) {
-				$text = '555555555555555555+';
-			}
+			// if (strpos($text, '555') !== false) {
+			// 	$text = '555555555555555555+';
+			// }
 
 			/*
 			//DATE TIME
@@ -132,40 +132,40 @@ if (!is_null($events['events'])) {
 			*/
 			
 			//Command Function
-			$text_ex = explode(' ', $text);
+			// $text_ex = explode(' ', $text);
 
-			//Wikipedia
-			if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความคือ "อยากรู้" ให้ทำการดึงข้อมูลจาก Wikipedia หาจากไทยก่อน
-					$ch1 = curl_init();
-					curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-					curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-					curl_setopt($ch1, CURLOPT_URL, 'https://th.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]);
-					$result1 = curl_exec($ch1);
-					curl_close($ch1);
-					$obj = json_decode($result1, true);
-				foreach($obj['query']['pages'] as $key => $val){
-					$result_text = $val['extract'];
-				}
-				if(empty($result_text)){//ถ้าไม่พบให้หาจาก en
-					$ch1 = curl_init();
-					curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-					curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-					curl_setopt($ch1, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]);
-					$result1 = curl_exec($ch1);
-					curl_close($ch1);
-					$obj = json_decode($result1, true);
+			// //Wikipedia
+			// if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความคือ "อยากรู้" ให้ทำการดึงข้อมูลจาก Wikipedia หาจากไทยก่อน
+			// 		$ch1 = curl_init();
+			// 		curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+			// 		curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+			// 		curl_setopt($ch1, CURLOPT_URL, 'https://th.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]);
+			// 		$result1 = curl_exec($ch1);
+			// 		curl_close($ch1);
+			// 		$obj = json_decode($result1, true);
+			// 	foreach($obj['query']['pages'] as $key => $val){
+			// 		$result_text = $val['extract'];
+			// 	}
+			// 	if(empty($result_text)){//ถ้าไม่พบให้หาจาก en
+			// 		$ch1 = curl_init();
+			// 		curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+			// 		curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+			// 		curl_setopt($ch1, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]);
+			// 		$result1 = curl_exec($ch1);
+			// 		curl_close($ch1);
+			// 		$obj = json_decode($result1, true);
 
-					foreach($obj['query']['pages'] as $key => $val){
-					$result_text = $val['extract'];
-					}
-				}
-				if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
-					$result_text = 'สัส ไม่รู้โว้ย';
-				}
-				$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text];
+			// 		foreach($obj['query']['pages'] as $key => $val){
+			// 		$result_text = $val['extract'];
+			// 		}
+			// 	}
+			// 	if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
+			// 		$result_text = 'สัส ไม่รู้โว้ย';
+			// 	}
+			// 	$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text];
 
-				$text = $result_text;
-			}
+			// 	$text = $result_text;
+			// }
 
 			if ($text == $event['message']['text']) {
 					//ignore
