@@ -55,5 +55,5 @@ try{
 }catch(Exception $e){
 	echo 'Caught exception: ',  $e->getMessage(), "\n";
 }
-
+echo date("Y-m-d H:i:s");
 echo "OK";
