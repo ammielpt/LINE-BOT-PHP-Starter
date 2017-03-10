@@ -4,12 +4,11 @@ $access_token = '5xB8I03dwTqRr7bAVZxYaU4FE2C+f9yzpTen4z+B/Q28nL+5Mvio/fsOzJeVmIq
 $groupId = 'U37d948cd0f83293486fc2b7bd339adc1';
 
 try{
-
-		$message = "jenkins has been pushed";
+		$message = "jenkins has been pushed on " . date("Y-m-d H:i:s");
 		//RESPONSE
 		$messages = [
 			'type' => 'text',
-			'message' => $message + date("Y-m-d H:i:s");
+			'text' => $message
 		];
 
 		// Make a POST Request to Messaging API to reply to sender
@@ -31,9 +30,6 @@ try{
 		curl_close($ch);
 
 		echo $result . "\r\n";
-	}else{
-		//no result from json.
-	}
 }catch(Exception $e){
 	echo 'Caught exception: ',  $e->getMessage(), "\n";
 }
