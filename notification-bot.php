@@ -30,6 +30,8 @@ if (!is_null($build['build'])) {
 									'buildNumber: '.$buildNumber.'\n'.
 									'branch: '.$branch;
 
+				echo $text;
+
 				$messages = [
 					'type' => 'text',
 					'text' => $text
