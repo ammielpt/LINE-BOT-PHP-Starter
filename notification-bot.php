@@ -47,7 +47,7 @@ if (!is_null($build['build'])) {
 }
 echo "OK";
 
-function sendTextMessage($replyToken, $messageObject){
+function sendTextMessage($access_token, $messageObject){
 	// Make a POST Request to Messaging API to reply to sender
 	$url = 'https://api.line.me/v2/bot/message/reply';
 	$data = [
