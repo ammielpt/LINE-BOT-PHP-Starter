@@ -24,11 +24,11 @@ if (!is_null($build['build'])) {
 			!is_null($branch)){
 
 				//Construct message
-				$text = 	'[.' $staus '.]'.'\n'.
-										'name: '. $name.'\n'.
-										'buildUrl: '.$buildUrl.'\n'.
-										'buildNumber: '.$buildNumber.'\n'.
-										'branch: '.$branch;
+				$text = 	'[.'. $status .'.]'.'\n'.
+									'name: '. $name.'\n'.
+									'buildUrl: '.$buildUrl.'\n'.
+									'buildNumber: '.$buildNumber.'\n'.
+									'branch: '.$branch;
 
 				$messages = [
 					'type' => 'text',
