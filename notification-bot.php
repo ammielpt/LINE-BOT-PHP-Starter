@@ -35,7 +35,7 @@ if (!is_null($build['build'])) {
 					'text' => $text
 				];
 
-				sendTextMessage($access_token, $message);
+				sendTextMessage($access_token, $messages);
 
 			}else{
 				//error null value
