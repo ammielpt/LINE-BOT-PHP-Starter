@@ -58,11 +58,11 @@ if (!is_null($events['events'])) {
 					if(count($text_ex) > 1){
 						if(is_numeric($text_ex[1])){
 								//Request image
-								RequestImage($replyToken, $id, $text_ex[1]));
+								RequestImage($replyToken, $id, $text_ex[1]);
 						}
 					}else{
 						//Reply with one image
-						RequestImage($replyToken, $id, 1));
+						RequestImage($replyToken, $id, 1);
 					}
 			}
 
