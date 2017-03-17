@@ -116,7 +116,7 @@ function RequestImage($id, $occurance){
 			array_push($imageList,$item['downloadURLs']);
 		}
 		$arraySize = sizeof($imageList);
-		echo 'image size: '+ $arraySize;
+		//echo 'image size: '+ $arraySize;
 
 		//Randomly pick 1 image from the list and reply back
 		if($arraySize >= 0){
@@ -150,7 +150,7 @@ function RequestImage($id, $occurance){
 				curl_close($ch);
 			}
 
-			echo $result . "\r\n";
+			//echo $result . "\r\n";
 		}else{
 			//no result from json.
 		}
