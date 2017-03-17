@@ -9,9 +9,9 @@ try{
 	$input = file_get_contents('php://input');
 	$requestValue = json_decode($input, true);
 
-	if(!is_null($requestValue['parameters'])){
+	if(!is_null($requestValue['id'])){
 		//request with parameter
-		$groupId = $requestValue['parameters']['id'];
+		$groupId = $requestValue['id'];
 		echo $groupId;
 	}else{
 		//direct request without parameter
