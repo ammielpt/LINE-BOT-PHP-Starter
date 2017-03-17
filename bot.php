@@ -58,17 +58,15 @@ if (!is_null($events['events'])) {
 					if(count($text_ex) > 1){
 						if(is_numeric($text_ex[1])){
 								//Request image
-								RequestImage($replyToken, $id, $text_ex[1]);
+								RequestImage($id, $text_ex[1]);
 						}
 					}else{
 						//Reply with one image
-						RequestImage($replyToken, $id, 1);
+						RequestImage($id, 1);
 					}
 			}
 
 			//End Request Image Response
-
-
 			if ($text == $event['message']['text']) {
 					//ignore
 			}else{
@@ -103,7 +101,7 @@ if (!is_null($events['events'])) {
 echo "OK";
 
 //Make request image to image api
-function RequestImage($replyToken, $receiverID, $occurance){
+function RequestImage($id, $occurance){
 
 	try{
 		// Get request/response message from firebase
@@ -133,9 +131,9 @@ function RequestImage($replyToken, $receiverID, $occurance){
 				];
 
 				// Make a POST Request to Messaging API to reply to sender
-				$url = 'https://api.line.me/v2/bot/message/reply';
+				$url = 'https://api.line.me/v2/bot/message/push';
 				$data = [
-					'replyToken' => $replyToken,
+					'to' => $id,
 					'messages' => [$messages],
 				];
 				$post = json_encode($data);
