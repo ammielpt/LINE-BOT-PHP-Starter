@@ -8,8 +8,14 @@ try{
 	//Retrieve HTTP POST input value
 	$input = file_get_contents('php://input');
 	$requestValue = json_decode($input, true);
-	
 
+	if(!is_null($requestValue['parameters'])){
+		//request with parameter
+		$groupId = $requestValue['parameters']['id'];
+		echo $groupId;
+	}else{
+		//direct request without parameter
+	}
 
 	// Get request/response message from firebase
 	$url = 'https://friendlychat-7162a.firebaseio.com/images/aGirl.json';
@@ -59,8 +65,11 @@ try{
 	}else{
 		//no result from json.
 	}
+
+
 }catch(Exception $e){
 	echo 'Caught exception: ',  $e->getMessage(), "\n";
 }
+
 echo date("Y-m-d H:i:s");
 echo "OK";
