@@ -55,16 +55,12 @@ if (!is_null($events['events'])) {
 			//Request Image Response
 			$text_ex = explode(' ', $text);
 			if (strpos($text_ex[0], 'ขอรูป') !== false) {
-					// if(count($text_ex) > 1){
-					// 	if(is_numeric($text_ex[1])){
-					// 			//Request image
-					// 			RequestImage($id, $text_ex[1]);
-					// 	}
-					// }else{
-					// 	//Reply with one image
-					// 	RequestImage($id, 1);
-					// }
 					$counter = 1;
+
+					if($text == 'ขอรูปเยอะๆ'){
+						$counter = 5;
+					}
+
 					if(sizeof($text_ex) > 1 && is_numeric($text_ex[1])){
 						$counter = $text_ex[1];
 					}
