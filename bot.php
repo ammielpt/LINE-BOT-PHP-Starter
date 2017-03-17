@@ -55,14 +55,65 @@ if (!is_null($events['events'])) {
 			//Request Image Response
 			$text_ex = explode(' ', $text);
 			if (strpos($text_ex[0], 'ขอรูป') !== false) {
-					if(count($text_ex) > 1){
-						if(is_numeric($text_ex[1])){
-								//Request image
-								RequestImage($id, $text_ex[1]);
+					// if(count($text_ex) > 1){
+					// 	if(is_numeric($text_ex[1])){
+					// 			//Request image
+					// 			RequestImage($id, $text_ex[1]);
+					// 	}
+					// }else{
+					// 	//Reply with one image
+					// 	RequestImage($id, 1);
+					// }
+					try{
+						// Get request/response message from firebase
+						$url = 'https://friendlychat-7162a.firebaseio.com/images/aGirl.json';
+						$content = file_get_contents($url);
+						$json = json_decode($content, true);
+						$imageList = array();
+
+						//Fill in image url into an Array
+						foreach($json as $item){
+							array_push($imageList,$item['downloadURLs']);
 						}
-					}else{
-						//Reply with one image
-						RequestImage($id, 1);
+						$arraySize = sizeof($imageList);
+						echo 'image size: '+ $arraySize;
+
+						//Randomly pick 1 image from the list and reply back
+						if($arraySize >= 0){
+								$randomIndex = rand(0,$arraySize - 1);
+								$imgUrl = $imageList[$randomIndex];
+
+								//RESPONSE
+								$messages = [
+									'type' => 'image',
+									'originalContentUrl' => $imgUrl,
+									'previewImageUrl' => $imgUrl
+								];
+
+								// Make a POST Request to Messaging API to reply to sender
+								$url = 'https://api.line.me/v2/bot/message/push';
+								$data = [
+									'to' => $id,
+									'messages' => [$messages],
+								];
+								$post = json_encode($data);
+								$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
+								$ch = curl_init($url);
+								curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+								curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+								curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+								curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+								curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+								$result = curl_exec($ch);
+								curl_close($ch);
+
+								echo $result . "\r\n";
+						}else{
+							//no result from json.
+						}
+					}catch(Exception $ex){
+							echo 'Caught exception: ',  $e->getMessage(), "\n";
 					}
 			}
 
