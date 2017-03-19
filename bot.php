@@ -2,6 +2,7 @@
 date_default_timezone_set('Asia/Bangkok');
 $access_token = '5xB8I03dwTqRr7bAVZxYaU4FE2C+f9yzpTen4z+B/Q28nL+5Mvio/fsOzJeVmIq0eAeRCsOuw/gxsJdcyMn5+/lPgkpd+VnPWz3YLHP4DSDZiLpaYR6GP9YU/K68+Cf/N5Hr/AfbFGGYpiJ6JOM1ewdB04t89/1O/w1cDnyilFU=';
 
+echo date("Y-m-d H:i:s");
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
@@ -34,7 +35,7 @@ if (!is_null($events['events'])) {
 			try{
 				$url = 'https://linechatlogger.firebaseio.com/logger.json';
 				$data = [
-					'date' => DATE(),
+					'date' => date("Y-m-d H:i:s"),
 					'event' => [$event],
 				];
 				$post = json_encode($data);
