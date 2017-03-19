@@ -35,7 +35,7 @@ if (!is_null($events['events'])) {
 			try{
 				$url = 'https://linechatlogger.firebaseio.com/logger.json';
 				$data = [
-					'date' => date("Y-m-d H:i:s"),
+					'datetime' => date("Y-m-d H:i:s"),
 					'event' => [$event],
 				];
 				$post = json_encode($data);
