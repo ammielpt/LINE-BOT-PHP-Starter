@@ -33,11 +33,7 @@ if (!is_null($events['events'])) {
 			//Save to Logger
 			try{
 				$url = 'https://linechatlogger.firebaseio.com/logger.json';
-				$data = [
-					'id' => $id,
-					'type' => $type,
-					'messages' => [$text],
-				];
+				$data = $events; //save all data from webhook events
 				$post = json_encode($data);
 				$ch = curl_init($url);
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
