@@ -52,14 +52,6 @@ if (!is_null($events['events'])) {
 			}
 			// End Save to Logger
 
-			// HELP
-			// $text = ($text == '!help') ? '' : $text;
-			// $text = 'อากาศ ชื่อสถานที่\\n'.
-			// 				'อยากรู้ [keyword]\\n'.
-			// 				'ตัวอย่าง\\n'.
-			// 				'อากาศ เชียงใหม\่\n'.
-			// 				'อยากรู้ แมว';
-
 			//LAUGH
 			if (strpos($text, '555') !== false) {
 				$text = '555555555555555555+';
@@ -136,13 +128,22 @@ if (!is_null($events['events'])) {
 			//End Request Image Response
 
 			//Command Function
-			// $text_ex = explode(' ', $text);
-			//
-			// // if($text_ex[0] == 'อยากรู้'){
-			// // 	$text = CheckWiki($text_ex[1]);
-			// // }else if($text_ex[0] == 'อากาศ'){
-			// // 	$text = CheckWeather($text_ex[1]);
-			// // }
+			$text_ex = explode(' ', $text);
+
+			if($text_ex[0] == 'อยากรู้'){
+				$text = CheckWiki($text_ex[1]);
+			}else if($text_ex[0] == 'อากาศ'){
+				$text = CheckWeather($text_ex[1]);
+			}
+
+			// HELP -- Keep this command at the last
+			if($text == '!help'){
+				$text = 'อากาศ ชื่อสถานที่\n'.
+								'อยากรู้ [keyword]\n'.
+								'ตัวอย่าง\n'.
+								'อากาศ เชียงใหม่\n'.
+								'อยากรู้ แมว';
+			}
 
 			if ($text == $event['message']['text']) {
 					//ignore
