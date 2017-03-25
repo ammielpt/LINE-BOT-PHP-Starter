@@ -127,6 +127,7 @@ if (!is_null($events['events'])) {
 							echo 'Caught exception: ',  $e->getMessage(), "\n";
 					}
 			}
+			//End Request Image Response
 
 			//Command Function
 			$text_ex = explode(' ', $text);
@@ -163,6 +164,7 @@ if (!is_null($events['events'])) {
 
 				$text = $result_text;
 			}
+			//END Wikipedia
 
 			//Weather
 			if($text_ex[0] == "อากาศ"){
@@ -195,8 +197,14 @@ if (!is_null($events['events'])) {
 
 				$text = $result_text;
 			}
+			// END WEATHER
 
-			//End Request Image Response
+			//LAUGH
+			if (strpos($text, '555') !== false) {
+				$text = '555555555555555555+';
+			}
+			//END LAUGH
+
 			if ($text == $event['message']['text']) {
 					//ignore
 			}else{
@@ -266,11 +274,6 @@ echo "OK";
 // 	$text = "แหกตาดูเองไป๊ \r\nhttps://pornjeds.github.io/ChatBotDashboard/";
 // }
 
-//LAUGH
-// if (strpos($text, '555') !== false) {
-// 	$text = '555555555555555555+';
-// }
-
 /*
 //DATE TIME
 $text = ($text == '!day') ? date("l",time()) : $text;
@@ -279,69 +282,3 @@ $text = ($text == '!time') ? date("H:i:s",time()) : $text;
 $text = ($text == 'วันนี้วันอะไร') ? date("l",time()) : $text;
 $text = ($text == 'วันนี้วันที่เท่าไหร่') ? date("Y-m-d",time()) : $text;
 $text = ($text == 'กี่โมงแล้ว') ? date("H:i:s",time()) : $text;
-
-
-
-
-
-//Google
-if($text_ex[0] == "google"){
-	$text = 'https://www.google.co.th/webhp?hl=en&sa=X&ved=0ahUKEwi9_eLi95PRAhXJN48KHQpIA9EQPAgD#hl=en&q='. $text_ex[1];
-}
-
-//Weather
-if($text_ex[0] == "อากาศ"){
-	$ch1 = curl_init();
-	curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch1, CURLOPT_URL, 'http://api.openweathermap.org/data/2.5/weather?q='.$text_ex[1].'&APPID=00583bfaf42c82b44a8f99896720ee8f');
-	//curl_setopt($ch1, CURLOPT_URL, 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22'.$text_ex[1].'%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys');
-	$result1 = curl_exec($ch1);
-	curl_close($ch1);
-	$obj = json_decode($result1, true);
-
-	$result_text = $obj['name'].' lat:'.$obj['coord']['lat'].' lon:'.$obj['coord']['lon'].' -'.$obj['weather']['main'].' -'.$obj['weather']['description'].' - temp:'.$obj['main']['temp'].' - wind speed:'.$obj['wind']['speed'].' - wind deg: '.$obj['wind']['deg'];
-
-	if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
-		$result_text = 'ไม่พบข้อมูล';
-	}
-
-	$text = $result_text;
-}
-*/
-
-//Command Function
-// $text_ex = explode(' ', $text);
-
-// //Wikipedia
-// if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความคือ "อยากรู้" ให้ทำการดึงข้อมูลจาก Wikipedia หาจากไทยก่อน
-// 		$ch1 = curl_init();
-// 		curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-// 		curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-// 		curl_setopt($ch1, CURLOPT_URL, 'https://th.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]);
-// 		$result1 = curl_exec($ch1);
-// 		curl_close($ch1);
-// 		$obj = json_decode($result1, true);
-// 	foreach($obj['query']['pages'] as $key => $val){
-// 		$result_text = $val['extract'];
-// 	}
-// 	if(empty($result_text)){//ถ้าไม่พบให้หาจาก en
-// 		$ch1 = curl_init();
-// 		curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-// 		curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-// 		curl_setopt($ch1, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]);
-// 		$result1 = curl_exec($ch1);
-// 		curl_close($ch1);
-// 		$obj = json_decode($result1, true);
-
-// 		foreach($obj['query']['pages'] as $key => $val){
-// 		$result_text = $val['extract'];
-// 		}
-// 	}
-// 	if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
-// 		$result_text = 'สัส ไม่รู้โว้ย';
-// 	}
-// 	$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text];
-
-// 	$text = $result_text;
-// }
