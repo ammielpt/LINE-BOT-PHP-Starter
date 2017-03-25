@@ -136,14 +136,13 @@ if (!is_null($events['events'])) {
 			//End Request Image Response
 
 			//Command Function
-			$text_ex = explode(' ', $text);
-
-			//Wiki
-			if($text_ex[0] == 'อยากรู้'){
-				$text = CheckWiki($text_ex[1]);
-			}else if($text_ex[0] == 'อากาศ'){
-				$text = CheckWeather($text_ex[1]);
-			}
+			// $text_ex = explode(' ', $text);
+			//
+			// // if($text_ex[0] == 'อยากรู้'){
+			// // 	$text = CheckWiki($text_ex[1]);
+			// // }else if($text_ex[0] == 'อากาศ'){
+			// // 	$text = CheckWeather($text_ex[1]);
+			// // }
 
 			if ($text == $event['message']['text']) {
 					//ignore
