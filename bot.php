@@ -54,11 +54,17 @@ if (!is_null($events['events'])) {
 
 			// HELP
 			$text = ($text == '!help') ? '' : $text;
-			$text = 'อากาศ ชื่อสถานที่\n'.
-							'อยากรู้ [keyword]\n'.
-							'ตัวอย่าง\n'.
-							'อากาศ เชียงใหม่\n'.
+			$text = 'อากาศ ชื่อสถานที่\\n'.
+							'อยากรู้ [keyword]\\n'.
+							'ตัวอย่าง\\n'.
+							'อากาศ เชียงใหม\่\n'.
 							'อยากรู้ แมว';
+
+			//LAUGH
+			if (strpos($text, '555') !== false) {
+				$text = '555555555555555555+';
+			}
+			//END LAUGH
 
 			//Request Image Response
 			$text_ex = explode(' ', $text);
@@ -132,78 +138,12 @@ if (!is_null($events['events'])) {
 			//Command Function
 			$text_ex = explode(' ', $text);
 
-			//Wikipedia
-			if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความคือ "อยากรู้" ให้ทำการดึงข้อมูลจาก Wikipedia หาจากไทยก่อน
-					$ch1 = curl_init();
-					curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-					curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-					curl_setopt($ch1, CURLOPT_URL, 'https://th.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]);
-					$result1 = curl_exec($ch1);
-					curl_close($ch1);
-					$obj = json_decode($result1, true);
-				foreach($obj['query']['pages'] as $key => $val){
-					$result_text = $val['extract'];
-				}
-				if(empty($result_text)){//ถ้าไม่พบให้หาจาก en
-					$ch1 = curl_init();
-					curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-					curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-					curl_setopt($ch1, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$text_ex[1]);
-					$result1 = curl_exec($ch1);
-					curl_close($ch1);
-					$obj = json_decode($result1, true);
-
-					foreach($obj['query']['pages'] as $key => $val){
-					$result_text = $val['extract'];
-					}
-				}
-				if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
-					$result_text = 'สัส ไม่รู้โว้ย';
-				}
-				$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text];
-
-				$text = $result_text;
+			//Wiki
+			if($text_ex[0] == 'อยากรู้'){
+				$text = CheckWiki($text_ex[1]);
+			}else if($text_ex[0] == 'อากาศ'){
+				$text = CheckWeather($text_ex[1]);
 			}
-			//END Wikipedia
-
-			//Weather
-			if($text_ex[0] == "อากาศ"){
-				$ch1 = curl_init();
-				curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-				curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch1, CURLOPT_URL, 'http://api.openweathermap.org/data/2.5/weather?q='.$text_ex[1].'&APPID=00583bfaf42c82b44a8f99896720ee8f');
-				//curl_setopt($ch1, CURLOPT_URL, 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22'.$text_ex[1].'%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys');
-				$result1 = curl_exec($ch1);
-				curl_close($ch1);
-				$obj = json_decode($result1, true);
-
-				//$result_text = $obj['name'].' lat:'.$obj['coord']['lat'].' lon:'.$obj['coord']['lon'].' -'.$obj['weather']['main'].' -'.$obj['weather']['description'].' - temp:'.$obj['main']['temp'].' - wind speed:'.$obj['wind']['speed'].' - wind deg: '.$obj['wind']['deg'];
-				$kelvin_temperature = $obj['main']['temp'];
-				$celsius_degree = $kelvin_temperature - 273.15; // K - 273.15
-				$max_celsius_degree = $obj['main']['temp_max'] - 273.15;
-				$max_celsius_degree = $obj['main']['temp_min'] - 273.15;
-				$weather_condition = $obj['weather']['main'];
-				$weather_description = $obj['weather']['description'];
-
-				$result_text = $obj['name'].'\n'.
-											 'อุณหภูมิ: '.$celsius_degree.' C\n'.
-											 'สูงสุด: '.$max_celsius_degree.' C\n'.
-											 'ต่ำสุด: '.$min_celsius_degree.' C\n'.
-											 'สภาพอากาศ: '.$weather_condition.' '.$weather_description.'\n';
-
-				if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
-					$result_text = 'ไม่พบข้อมูล';
-				}
-
-				$text = $result_text;
-			}
-			// END WEATHER
-
-			//LAUGH
-			if (strpos($text, '555') !== false) {
-				$text = '555555555555555555+';
-			}
-			//END LAUGH
 
 			if ($text == $event['message']['text']) {
 					//ignore
@@ -238,47 +178,66 @@ if (!is_null($events['events'])) {
 }
 echo "OK";
 
-// // Get request/response message from firebase
-// $url = 'https://linechatbotdb.firebaseio.com/keywords.json';
-// $content = file_get_contents($url);
-// $json = json_decode($content, true);
+function CheckWiki($q){
+			$ch1 = curl_init();
+			curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch1, CURLOPT_URL, 'https://th.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$q);
+			$result1 = curl_exec($ch1);
+			curl_close($ch1);
+			$obj = json_decode($result1, true);
+		foreach($obj['query']['pages'] as $key => $val){
+			$result_text = $val['extract'];
+		}
+		if(empty($result_text)){//ถ้าไม่พบให้หาจาก en
+			$ch1 = curl_init();
+			curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch1, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='.$q);
+			$result1 = curl_exec($ch1);
+			curl_close($ch1);
+			$obj = json_decode($result1, true);
 
-// $wordList = array();
-// foreach($json as $item){
-// 	//array_push($wordList, $item);
+			foreach($obj['query']['pages'] as $key => $val){
+			$result_text = $val['extract'];
+			}
+		}
+		if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
+			$result_text = 'สัส ไม่รู้โว้ย';
+		}
+		$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text];
 
-// 	if($item['compare'] == 1) //EQUAL
-// 	{
-// 		//EQUAL LOGIC
-// 		if($text == $item['key'])
-// 		{
-// 			$text = $item['response'];
-// 		}
-// 	}else if($item['compare'] == 2) //CONTAINS
-// 	{
-// 		if(strpos($text, $item['key']) !== false)
-// 		{
-// 			$text = $item['response'];
-// 		}
-// 	}else
-// 	{
-// 		//EQUAL LOGIC BY DEFAULT
-// 		if($text == $item['key'])
-// 		{
-// 			$text = $item['response'];
-// 		}
-// 	}
-// }
+		$text = $result_text;
 
-// if($text == '!key') {
-// 	$text = "แหกตาดูเองไป๊ \r\nhttps://pornjeds.github.io/ChatBotDashboard/";
-// }
+		return text;
+}
 
-/*
-//DATE TIME
-$text = ($text == '!day') ? date("l",time()) : $text;
-$text = ($text == '!date') ? date("Y-m-d",time()) : $text;
-$text = ($text == '!time') ? date("H:i:s",time()) : $text;
-$text = ($text == 'วันนี้วันอะไร') ? date("l",time()) : $text;
-$text = ($text == 'วันนี้วันที่เท่าไหร่') ? date("Y-m-d",time()) : $text;
-$text = ($text == 'กี่โมงแล้ว') ? date("H:i:s",time()) : $text;
+function CheckWeather($destination){
+		$ch1 = curl_init();
+		curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch1, CURLOPT_URL, 'http://api.openweathermap.org/data/2.5/weather?q='.$destination.'&APPID=00583bfaf42c82b44a8f99896720ee8f');
+		$result1 = curl_exec($ch1);
+		curl_close($ch1);
+		$obj = json_decode($result1, true);
+
+		$kelvin_temperature = (float) $obj['main']['temp'];
+		$celsius_degree = (float) $kelvin_temperature - 273.15; // K - 273.15
+		$max_celsius_degree = (float) $obj['main']['temp_max'] - 273.15;
+		$max_celsius_degree = (float) $obj['main']['temp_min'] - 273.15;
+		$weather_condition = $obj['weather']['main'];
+		$weather_description = $obj['weather']['description'];
+
+		$result_text = $obj['name'].'\n'.
+									 'อุณหภูมิ: '.$celsius_degree.' C\\n'.
+									 'สูงสุด: '.$max_celsius_degree.' C\\n'.
+									 'ต่ำสุด: '.$min_celsius_degree.' C\\n'.
+									 'สภาพอากาศ: '.$weather_condition.' '.$weather_description.'\\n';
+
+		if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
+			$result_text = 'ไม่พบข้อมูล';
+		}
+
+	$text = $result_text;
+	return text;
+}
