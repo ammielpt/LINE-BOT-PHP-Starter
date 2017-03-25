@@ -209,7 +209,7 @@ function CheckWiki($q){
 
 		$text = $result_text;
 
-		return text;
+		return $text;
 }
 
 function CheckWeather($destination){
@@ -239,5 +239,5 @@ function CheckWeather($destination){
 		}
 
 	$text = $result_text;
-	return text;
+	return $text;
 }
