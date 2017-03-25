@@ -229,8 +229,8 @@ function CheckWeather($destination){
 		$celsius_degree = $kelvin_temperature - 273.15; // K - 273.15
 		$max_celsius_degree = $kelvin_max_temp - 273.15;
 		$min_celsius_degree = $kelvin_min_temp - 273.15;
-		$weather_condition = $obj['weather']['main'];
-		$weather_description = $obj['weather']['description'];
+		$weather_condition = $obj['weather'][1];
+		$weather_description = $obj['weather'][2];
 
 		$result_text = $obj['name']."\n".
 									 'อุณหภูมิ: '.$celsius_degree." C\n".
