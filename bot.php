@@ -71,6 +71,10 @@ if (!is_null($events['events'])) {
 						$counter = $text_ex[1];
 					}
 
+					//Circuit breaker
+					if($counter > 10)
+						$counter = 10;
+
 					try{
 						// Get request/response message from firebase
 						$url = 'https://friendlychat-7162a.firebaseio.com/images/aGirl.json';
@@ -116,8 +120,6 @@ if (!is_null($events['events'])) {
 								$result = curl_exec($ch);
 								curl_close($ch);
 							}
-
-							//echo $result . "\r\n";
 						}else{
 							//no result from json.
 						}
@@ -130,18 +132,18 @@ if (!is_null($events['events'])) {
 			//Command Function
 			$text_ex = explode(' ', $text);
 
-			if($text_ex[0] == 'อยากรู้'){
+			if($text_ex[0] == 'อยากรู้' && isset($text_ex[1])){
 				$text = CheckWiki($text_ex[1]);
-			}else if($text_ex[0] == 'อากาศ'){
+			}else if($text_ex[0] == 'อากาศ' && isset($text_ex[1])){
 				$text = CheckWeather($text_ex[1]);
 			}
 
 			// HELP -- Keep this command at the last
 			if($text == '!help'){
-				$text = 'อากาศ ชื่อสถานที่\\n'.
-								'อยากรู้ [keyword]\\n'.
-								'ตัวอย่าง\\n'.
-								'อากาศ เชียงใหม่\\n'.
+				$text = "อากาศ ชื่อสถานที่\n".
+								"อยากรู้ [keyword]\n".
+								"ตัวอย่าง\n".
+								"อากาศ เชียงใหม่\n".
 								'อยากรู้ แมว';
 			}
 
@@ -226,11 +228,11 @@ function CheckWeather($destination){
 		$kelvin_min_temp = (float) $obj['main']['temp_min'];
 		$celsius_degree = $kelvin_temperature - 273.15; // K - 273.15
 		$max_celsius_degree = $kelvin_max_temp - 273.15;
-		$max_celsius_degree = $kelvin_min_temp - 273.15;
+		$min_celsius_degree = $kelvin_min_temp - 273.15;
 		$weather_condition = $obj['weather']['main'];
 		$weather_description = $obj['weather']['description'];
 
-		$result_text = $obj['name'].'\n'.
+		$result_text = $obj['name']."\n".
 									 'อุณหภูมิ: '.$celsius_degree." C\n".
 									 'สูงสุด: '.$max_celsius_degree." C\n".
 									 'ต่ำสุด: '.$min_celsius_degree." C\n".
