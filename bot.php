@@ -52,6 +52,14 @@ if (!is_null($events['events'])) {
 			}
 			// End Save to Logger
 
+			// HELP
+			$text = ($text == '!help') ? '' : $text;
+			$text = 'อากาศ ชื่อสถานที่\n'.
+							'อยากรู้ [keyword]\n'.
+							'ตัวอย่าง\n'.
+							'อากาศ เชียงใหม่\n'.
+							'อยากรู้ แมว';
+
 			//Request Image Response
 			$text_ex = explode(' ', $text);
 			if (strpos($text_ex[0], 'ขอรูป') !== false) {
@@ -167,7 +175,19 @@ if (!is_null($events['events'])) {
 				curl_close($ch1);
 				$obj = json_decode($result1, true);
 
-				$result_text = $obj['name'].' lat:'.$obj['coord']['lat'].' lon:'.$obj['coord']['lon'].' -'.$obj['weather']['main'].' -'.$obj['weather']['description'].' - temp:'.$obj['main']['temp'].' - wind speed:'.$obj['wind']['speed'].' - wind deg: '.$obj['wind']['deg'];
+				//$result_text = $obj['name'].' lat:'.$obj['coord']['lat'].' lon:'.$obj['coord']['lon'].' -'.$obj['weather']['main'].' -'.$obj['weather']['description'].' - temp:'.$obj['main']['temp'].' - wind speed:'.$obj['wind']['speed'].' - wind deg: '.$obj['wind']['deg'];
+				$kelvin_temperature = $obj['main']['temp'];
+				$celsius_degree = $kelvin_temperature - 273.15; // K - 273.15
+				$max_celsius_degree = $obj['main']['temp_max'] - 273.15;
+				$max_celsius_degree = $obj['main']['temp_min'] - 273.15;
+				$weather_condition = $obj['weather']['main'];
+				$weather_description = $obj['weather']['description'];
+
+				$result_text = $obj['name'].'\n'.
+											 'อุณหภูมิ: '.$celsius_degree.' C\n'.
+											 'สูงสุด: '.$max_celsius_degree.' C\n'.
+											 'ต่ำสุด: '.$min_celsius_degree.' C\n'.
+											 'สภาพอากาศ: '.$weather_condition.' '.$weather_description.'\n';
 
 				if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
 					$result_text = 'ไม่พบข้อมูล';
@@ -260,8 +280,7 @@ $text = ($text == 'วันนี้วันอะไร') ? date("l",time()) 
 $text = ($text == 'วันนี้วันที่เท่าไหร่') ? date("Y-m-d",time()) : $text;
 $text = ($text == 'กี่โมงแล้ว') ? date("H:i:s",time()) : $text;
 
-//HELP
-//$text = ($text == '!help') ? '' : $text;
+
 
 
 
