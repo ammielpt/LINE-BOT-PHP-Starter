@@ -53,12 +53,12 @@ if (!is_null($events['events'])) {
 			// End Save to Logger
 
 			// HELP
-			$text = ($text == '!help') ? '' : $text;
-			$text = 'อากาศ ชื่อสถานที่\\n'.
-							'อยากรู้ [keyword]\\n'.
-							'ตัวอย่าง\\n'.
-							'อากาศ เชียงใหม\่\n'.
-							'อยากรู้ แมว';
+			// $text = ($text == '!help') ? '' : $text;
+			// $text = 'อากาศ ชื่อสถานที่\\n'.
+			// 				'อยากรู้ [keyword]\\n'.
+			// 				'ตัวอย่าง\\n'.
+			// 				'อากาศ เชียงใหม\่\n'.
+			// 				'อยากรู้ แมว';
 
 			//LAUGH
 			if (strpos($text, '555') !== false) {
