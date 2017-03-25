@@ -222,17 +222,19 @@ function CheckWeather($destination){
 		$obj = json_decode($result1, true);
 
 		$kelvin_temperature = (float) $obj['main']['temp'];
-		$celsius_degree = (float) $kelvin_temperature - 273.15; // K - 273.15
-		$max_celsius_degree = (float) $obj['main']['temp_max'] - 273.15;
-		$max_celsius_degree = (float) $obj['main']['temp_min'] - 273.15;
+		$kelvin_max_temp = (float) $obj['main']['temp_max'];
+		$kelvin_min_temp = (float) $obj['main']['temp_min']
+		$celsius_degree = $kelvin_temperature - 273.15; // K - 273.15
+		$max_celsius_degree = $kelvin_max_temp - 273.15;
+		$max_celsius_degree = $kelvin_min_temp - 273.15;
 		$weather_condition = $obj['weather']['main'];
 		$weather_description = $obj['weather']['description'];
 
 		$result_text = $obj['name'].'\n'.
-									 'อุณหภูมิ: '.$celsius_degree.' C\\n'.
-									 'สูงสุด: '.$max_celsius_degree.' C\\n'.
-									 'ต่ำสุด: '.$min_celsius_degree.' C\\n'.
-									 'สภาพอากาศ: '.$weather_condition.' '.$weather_description.'\\n';
+									 'อุณหภูมิ: '.$celsius_degree." C\n".
+									 'สูงสุด: '.$max_celsius_degree." C\n".
+									 'ต่ำสุด: '.$min_celsius_degree." C\n".
+									 'สภาพอากาศ: '.$weather_condition.' '.$weather_description."\n";
 
 		if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
 			$result_text = 'ไม่พบข้อมูล';
