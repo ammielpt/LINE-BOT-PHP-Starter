@@ -223,7 +223,7 @@ function CheckWeather($destination){
 
 		$kelvin_temperature = (float) $obj['main']['temp'];
 		$kelvin_max_temp = (float) $obj['main']['temp_max'];
-		$kelvin_min_temp = (float) $obj['main']['temp_min']
+		$kelvin_min_temp = (float) $obj['main']['temp_min'];
 		$celsius_degree = $kelvin_temperature - 273.15; // K - 273.15
 		$max_celsius_degree = $kelvin_max_temp - 273.15;
 		$max_celsius_degree = $kelvin_min_temp - 273.15;
