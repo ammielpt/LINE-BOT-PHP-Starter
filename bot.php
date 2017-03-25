@@ -138,10 +138,10 @@ if (!is_null($events['events'])) {
 
 			// HELP -- Keep this command at the last
 			if($text == '!help'){
-				$text = 'อากาศ ชื่อสถานที่\n'.
-								'อยากรู้ [keyword]\n'.
-								'ตัวอย่าง\n'.
-								'อากาศ เชียงใหม่\n'.
+				$text = 'อากาศ ชื่อสถานที่\\n'.
+								'อยากรู้ [keyword]\\n'.
+								'ตัวอย่าง\\n'.
+								'อากาศ เชียงใหม่\\n'.
 								'อยากรู้ แมว';
 			}
 
