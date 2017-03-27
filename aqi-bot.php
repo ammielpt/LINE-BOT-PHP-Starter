@@ -14,7 +14,7 @@ $output = '';
 //Parameter List
 //Group ID
 //City Name
-$cityName = htmlspecialchars($_GET["city"]);
+$cityName = rawurlencode($_GET["city"]);
 if(isset($_GET['id']) && !is_null($_GET['id'])){
 	$groupId = htmlspecialchars($_GET["id"]);
 }
