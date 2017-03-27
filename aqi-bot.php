@@ -8,6 +8,8 @@ $_API_TOKEN = 'cda09c5eac1b8eb5d447385c3b7b0b67cf8e6acc';
 $_CITY_NAME_PARAM = '{CITY_NAME}';
 $_API_URL = "http://api.waqi.info/feed/{CITY_NAME}/?token=".$_API_TOKEN;
 
+$result = '';
+
 // Get HTTP Get parameter
 //Parameter List
 //Group ID
@@ -64,6 +66,7 @@ if(isset($cityName) && !is_null($cityName)){
 							"Wind: ". $obj -> data -> iaqi -> w -> v ."\n".
 							"Updated: ". $obj -> data -> time -> s;
 
+			$result = $text;
 			//Send response text to target group id
 			$messages = [
 				'type' => 'text',
@@ -96,4 +99,4 @@ if(isset($cityName) && !is_null($cityName)){
 	//Return not found city
 	echo 'City Not found';
 }
-echo "\nOK";
+echo $result;
