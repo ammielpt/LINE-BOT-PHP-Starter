@@ -255,7 +255,7 @@ function CheckAQI($city, $id){
 	$ch1 = curl_init();
 	curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch1, CURLOPT_URL, 'https://krean-chat-bot.herokuapp.com/aqi-bot.php?city='.$city.'&id='.$id);
+	curl_setopt($ch1, CURLOPT_URL, 'https://krean-chat-bot.herokuapp.com/aqi-bot.php?city='.rawurlencode($city).'&id='.$id);
 	$result1 = curl_exec($ch1);
 	curl_close($ch1);
 }
