@@ -137,7 +137,7 @@ if (!is_null($events['events'])) {
 			}else if($text_ex[0] == 'อากาศ' && isset($text_ex[1])){
 				$text = CheckWeather($text_ex[1]);
 			}else if($text_ex[0] == 'aqi' && isset($text_ex[1])){
-				$text = CheckAQI($text_ex[1], $id);
+				$text = CheckAQI(str_replace('aqi ','',$text), $id);
 			}
 
 			// HELP -- Keep this command at the last
