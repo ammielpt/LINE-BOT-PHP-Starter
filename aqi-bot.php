@@ -51,6 +51,7 @@ if(isset($cityName) && !is_null($cityName)){
 
 			$text = "City: ". $obj -> data -> city -> name ." \n".
 							"Quality: ". $airQualityEU ."\n".
+							$airQualityTH."\n".
 							"AQI: ". $obj -> data -> aqi ."\n".
 							"Temperature: ". $obj -> data -> iaqi -> t -> v ."\n".
 							"PM10: ". $obj -> data -> iaqi -> pm10 -> v."\n".
