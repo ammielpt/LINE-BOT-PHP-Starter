@@ -130,6 +130,7 @@ if (!is_null($events['events'])) {
 			//End Request Image Response
 
 			//Command Function
+			$text = strtolower($text);
 			$text_ex = explode(' ', $text);
 
 			if($text_ex[0] == 'อยากรู้' && isset($text_ex[1])){
