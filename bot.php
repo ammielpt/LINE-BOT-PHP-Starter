@@ -136,6 +136,8 @@ if (!is_null($events['events'])) {
 				$text = CheckWiki($text_ex[1]);
 			}else if($text_ex[0] == 'อากาศ' && isset($text_ex[1])){
 				$text = CheckWeather($text_ex[1]);
+			}else if($text_ex[0] == 'aqi' && isset($text_ex[1])){
+				$text = CheckAQI($text_ex[1], $id);
 			}
 
 			// HELP -- Keep this command at the last
@@ -247,4 +249,13 @@ function CheckWeather($destination){
 
 	$text = $result_text;
 	return $text;
+}
+
+function CheckAQI($city, $id){
+	$ch1 = curl_init();
+	curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch1, CURLOPT_URL, 'https://krean-chat-bot.herokuapp.com/aqi-bot.php?city='.$city.'&id='.$id);
+	$result1 = curl_exec($ch1);
+	curl_close($ch1);
 }
