@@ -13,6 +13,9 @@ $_API_URL = "http://api.waqi.info/feed/{CITY_NAME}/?token=".$_API_TOKEN;
 //Group ID
 //City Name
 $cityName = htmlspecialchars($_GET["city"]);
+if(isset($_GET['id']) && !is_null($_GET['id'])){
+	$groupId = htmlspecialchars($_GET["id"]);
+}
 $api_request_url = '';
 
 if(isset($cityName) && !is_null($cityName)){
