@@ -1,0 +1,63 @@
+{
+  "status": "ok",
+  "data": {
+    "aqi": 72,
+    "idx": 5775,
+    "attributions": [
+      {
+        "url": "http://aqmthai.com/",
+        "name": "Division of Air Quality Data, Air Quality and Noise Management Bureau, Pollution Control Department."
+      },
+      {
+        "url": "http://worldweather.wmo.int",
+        "name": "World Meteorological Organization - surface synoptic observations (WMO-SYNOP)"
+      }
+    ],
+    "city": {
+      "geo": null,
+      "name": "Chiang Mai",
+      "url": "http://aqicn.org/city/chiang-mai/"
+    },
+    "dominentpol": "pm25",
+    "iaqi": {
+      "co": {
+        "v": 0.1
+      },
+      "h": {
+        "v": 48.62
+      },
+      "no2": {
+        "v": 4.1
+      },
+      "o3": {
+        "v": 12.3
+      },
+      "p": {
+        "v": 972.25
+      },
+      "pm10": {
+        "v": 31
+      },
+      "pm25": {
+        "v": 72
+      },
+      "r": {
+        "v": 0.4
+      },
+      "so2": {
+        "v": 0.6
+      },
+      "t": {
+        "v": 32.45
+      },
+      "w": {
+        "v": 0.85
+      }
+    },
+    "time": {
+      "s": "2017-03-27 11:00:00",
+      "tz": "+07:00",
+      "v": 1490612400
+    }
+  }
+}
