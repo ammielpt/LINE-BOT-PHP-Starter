@@ -49,17 +49,17 @@ if(isset($cityName) && !is_null($cityName)){
 				$airQualityTH = "อันตราย (danger)	บุคคลทั่วไป ควรหลีกเลี่ยงการออกกำลังภายนอกอาคาร สำหรับผู้ป่วยโรคระบบทางเดินหายใจ ควรอยู่ภายในอาคาร (Visitors should avoid exercising outdoors. For patients with respiratory diseases. Should stay indoors)";
 			}
 
-			$text = "City: ". $obj -> city -> name ." \n".
+			$text = "City: ". $obj -> data -> city -> name ." \n".
 							"Quality: ". $airQualityEU ."\n".
 							"AQI: ". $obj -> data -> aqi ."\n".
-							"Temperature: ". $obj -> iaqi -> t -> v ."\n".
-							"PM10: ". $obj -> iaqi -> pm10 -> v."\n".
-							"PM25: ". $obj -> iaqi -> pm25 -> v ."\n".
-							"Rain: ". $obj -> iaqi -> r -> v ."\n".
-							"SO2: ". $obj -> iaqi -> so2 -> v ."\n".
-							"Wind: ". $obj -> iaqi -> w -> v ."\n".
-							"Updated: ". $obj -> time -> s;
-							
+							"Temperature: ". $obj -> data -> iaqi -> t -> v ."\n".
+							"PM10: ". $obj -> data -> iaqi -> pm10 -> v."\n".
+							"PM25: ". $obj -> data -> iaqi -> pm25 -> v ."\n".
+							"Rain: ". $obj -> data -> iaqi -> r -> v ."\n".
+							"SO2: ". $obj -> data -> iaqi -> so2 -> v ."\n".
+							"Wind: ". $obj -> data -> iaqi -> w -> v ."\n".
+							"Updated: ". $obj -> data -> time -> s;
+
 			//Send response text to target group id
 			$messages = [
 				'type' => 'text',
