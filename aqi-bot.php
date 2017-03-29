@@ -34,6 +34,9 @@ if(isset($cityName) && !is_null($cityName)){
 			$pm25 = (float) $obj -> iaqi -> pm25 -> v;
 			$airQualityEU = '';
 			$airQualityTH = '';
+
+			$pm25 = 135;
+
 			if($pm25 <= 50){
 				$airQualityEU = "Good ";
 				$airQualityTH = "คุณภาพดี (high quality)	ไม่มีผลกระทบต่อสุขภาพ (No health effects)";
