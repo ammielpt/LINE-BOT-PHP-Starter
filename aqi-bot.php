@@ -31,7 +31,7 @@ if(isset($cityName) && !is_null($cityName)){
 		// if ok construct response
 		if($obj -> status === "ok"){
 
-			$pm25 = (int) $obj -> iaqi -> pm25 -> v;
+			$pm25 = (float) $obj -> data -> iaqi -> pm25 -> v;
 			$airQualityEU = '';
 			$airQualityTH = '';
 
