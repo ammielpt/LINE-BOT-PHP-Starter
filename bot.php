@@ -139,7 +139,7 @@ if (!is_null($events['events'])) {
 				$text = CheckWeather(str_replace('อากาศ ','',$text));
 			}else if($text_ex[0] == 'aqi' && $text_ex[1] == 'detail' && isset($text_ex[2])){
 				$text = CheckAQITemplate(str_replace('aqi detail ','',$text), $id);
-			}else if($text_ex[0] == 'aqi ' && isset($text_ex[1])){
+			}else if($text_ex[0] == 'aqi' && isset($text_ex[1])){
 				$text = CheckAQI(str_replace('aqi ','',$text), $id);
 			}
 
