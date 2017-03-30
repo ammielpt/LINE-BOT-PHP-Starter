@@ -13,7 +13,11 @@ $_API_URL = "http://api.waqi.info/feed/{CITY_NAME}/?token=".$_API_TOKEN;
 //Parameter List
 //Group ID
 //City Name
-$cityName = $_GET["city"];
+$cityName = 'Chiang Mai';
+
+if(isset($_GET['city']) && !is_null($_GET['city'])){
+	$cityName = $_GET["city"];
+}
 if(isset($_GET['id']) && !is_null($_GET['id'])){
 	$groupId = htmlspecialchars($_GET["id"]);
 }
@@ -115,3 +119,5 @@ if(isset($cityName) && !is_null($cityName)){
 	//Return not found city
 	echo 'City Not found';
 }
+
+echo 'OK';
