@@ -67,28 +67,26 @@ if(isset($cityName) && !is_null($cityName)){
 							"Updated: ". $obj -> data -> time -> s;
 
 			//Send response text to target group id
-			// $messages = [
-			// 	'type' => 'text',
-			// 	'text' => $text
-			// ];
+			$actions = [
+				'type' => 'message',
+				'label' => 'Detail',
+				'text' => 'aqi detail ' . $cityName
+			];
+
+			$template = [
+				'type' => 'buttons',
+				'thumbnailImageUrl' => 'https://firebasestorage.googleapis.com/v0/b/friendlychat-7162a.appspot.com/o/images%2FAQI%2Fbanner.jpg?alt=media&token=087c92c7-8083-4ca4-8936-f4cdcfd02834',
+				'title' => $airQualityEU,
+				'text' => $cityName . ' AQI: ' . $obj -> data -> aqi .
+								"\nTemperature: " . $obj -> data -> iaqi -> t -> v .
+								"\nUpdated: " . $obj -> data -> time -> s,
+				'actions' => $actions
+			];
+
 			$messages = [
-					'type':'template',
-					'altText': 'Air Quality Index',
-					'template':{
-						'type': 'buttons',
-						'thumbnailImageUrl': 'https://firebasestorage.googleapis.com/v0/b/friendlychat-7162a.appspot.com/o/images%2FAQI%2Fbanner.jpg?alt=media&token=087c92c7-8083-4ca4-8936-f4cdcfd02834',
-						'title': $airQualityEU;,
-						'text': $cityName . ' AQI: ' . $obj -> data -> aqi .
-										"\nTemperature: " . $obj -> data -> iaqi -> t -> v .
-										"\nUpdated: " . $obj -> data -> time -> s,
-						'actions': [
-							{
-								'type': 'message',
-								'label': 'Detail',
-								'text': 'aqi detail ' . $cityName
-							}
-						]
-					}
+					'type' => 'template',
+					'altText' => 'Air Quality Index',
+					'template' => $template
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
