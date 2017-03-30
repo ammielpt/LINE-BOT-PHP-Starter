@@ -134,10 +134,12 @@ if (!is_null($events['events'])) {
 			$text_ex = explode(' ', $text);
 
 			if($text_ex[0] == 'อยากรู้' && isset($text_ex[1])){
-				$text = CheckWiki($text_ex[1]);
+				$text = CheckWiki(str_replace('อยากรู้ ','',$text));
 			}else if($text_ex[0] == 'อากาศ' && isset($text_ex[1])){
-				$text = CheckWeather($text_ex[1]);
-			}else if($text_ex[0] == 'aqi' && isset($text_ex[1])){
+				$text = CheckWeather(str_replace('อากาศ ','',$text));
+			}else if($text_ex[0] == 'aqi' && $text_ex[1] == 'detail' && isset($text_ex[2])){
+				$text = CheckAQITemplate(str_replace('aqi detail ','',$text), $id);
+			}else if($text_ex[0] == 'aqi ' && isset($text_ex[1])){
 				$text = CheckAQI(str_replace('aqi ','',$text), $id);
 			}
 
@@ -257,6 +259,15 @@ function CheckAQI($city, $id){
 	curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch1, CURLOPT_URL, 'https://krean-chat-bot.herokuapp.com/aqi-bot.php?city='.rawurlencode($city).'&id='.$id);
+	$result1 = curl_exec($ch1);
+	curl_close($ch1);
+}
+
+function CheckAQITemplate($city, $id){
+	$ch1 = curl_init();
+	curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch1, CURLOPT_URL, 'https://krean-chat-bot.herokuapp.com/aqi-bot-template.php?city='.rawurlencode($city).'&id='.$id);
 	$result1 = curl_exec($ch1);
 	curl_close($ch1);
 }
