@@ -77,7 +77,7 @@ if (!is_null($events['events'])) {
 
 					try{
 						// Get request/response message from firebase
-						$url = 'https://friendlychat-7162a.firebaseio.com/images/aGirl.json';
+						$url = 'https://friendlychat-7162a.firebaseio.com/images/CupE.json';
 						$content = file_get_contents($url);
 						$json = json_decode($content, true);
 						$imageList = array();
