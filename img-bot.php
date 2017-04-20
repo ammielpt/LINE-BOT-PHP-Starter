@@ -18,15 +18,14 @@ try{
 	}
 
 	// Get request/response message from firebase
-	$url = 'https://friendlychat-7162a.firebaseio.com/images/aGirl.json';
+	//$url = 'https://friendlychat-7162a.firebaseio.com/images/aGirl.json';
+	$url = 'https://friendlychat-7162a.firebaseio.com/images/CupE.json';
 	$content = file_get_contents($url);
 	$json = json_decode($content, true);
 	$imageList = array();
 	//$count = 0;
 	foreach($json as $item){
 		array_push($imageList,$item['downloadURLs']);
-		//$imageList[$counter] = $item['downloadURLs'];
-		//$counter++;
 	}
 
 	$arraySize = sizeof($imageList);
