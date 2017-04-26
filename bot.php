@@ -34,7 +34,7 @@ if (!is_null($events['events'])) {
 			//Save to Logger
 			try{
 				//$url = 'https://linechatlogger.firebaseio.com/logger.json';
-				$url = 'https://linechatlogger.firebaseio.com/logger/'.date("Y-m-d").'.json';
+				$url = 'https://linechatlogger.firebaseio.com/log/'.$type.'/'.$id.'/'.date("Y-m-d").'.json';
 				$data = [
 					'datetime' => date("Y-m-d H:i:s"),
 					'event' => [$event],
