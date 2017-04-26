@@ -25,10 +25,10 @@ if (!is_null($events['events'])) {
 				$type = 'user';
 			}else if($event['source']['type'] == 'group'){
 				$id = $event['source']['groupId'];
-				$type = 'user';
+				$type = 'group';
 			}else if($event['source']['type'] == 'room'){
 				$id = $event['source']['roomId'];
-				$type = 'user';
+				$type = 'room';
 			}
 
 			//Save to Logger
