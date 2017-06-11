@@ -60,17 +60,10 @@ if (!is_null($events['events'])) {
 			//END LAUGH
 
 			//Request Image Response
-			$text_ex = explode(' ', $text);
-			if (strpos($text_ex[0], 'ขอรูป') !== false) {
-					$counter = 1;
+			//$text_ex = explode(' ', $text);
+			if (preg_match('ขอ.?[1-9][0-9]?.?รูป',$text)) {
 
-					if($text == 'ขอรูปเยอะๆ'){
-						$counter = 5;
-					}
-
-					if(sizeof($text_ex) > 1 && is_numeric($text_ex[1])){
-						$counter = $text_ex[1];
-					}
+					$counter = (int)trim(str_replace('ขอ','', str_replace('รูป','', $text)));
 
 					//Circuit breaker
 					if($counter > 10)
