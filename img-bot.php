@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Asia/Bangkok');
 $access_token = '5xB8I03dwTqRr7bAVZxYaU4FE2C+f9yzpTen4z+B/Q28nL+5Mvio/fsOzJeVmIq0eAeRCsOuw/gxsJdcyMn5+/lPgkpd+VnPWz3YLHP4DSDZiLpaYR6GP9YU/K68+Cf/N5Hr/AfbFGGYpiJ6JOM1ewdB04t89/1O/w1cDnyilFU=';
-//$groupId = 'U37d948cd0f83293486fc2b7bd339adc1'; //pornjeds
-$groupId = 'C958fd7db18b76856d868561c74bb6ab2'; //aGirl
+$groupId = 'U37d948cd0f83293486fc2b7bd339adc1'; //pornjeds
+//$groupId = 'C958fd7db18b76856d868561c74bb6ab2'; //aGirl
 
 try{
 	//Retrieve HTTP POST input value
