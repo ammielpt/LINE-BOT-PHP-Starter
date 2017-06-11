@@ -61,7 +61,7 @@ if (!is_null($events['events'])) {
 
 			//Request Image Response
 			//$text_ex = explode(' ', $text);
-			if (preg_match('ขอ.?[1-9][0-9]?.?รูป', $text)) {
+			if (ereg('ขอ.?[1-9][0-9]?.?รูป', $text)) {
 
 					$counter = (int)trim(str_replace('ขอ','', str_replace('รูป','', $text)));
 
